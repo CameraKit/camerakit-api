@@ -2,11 +2,12 @@ import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Connection } from 'typeorm';
 import { UserModule } from './user/user.module';
+import { AuthModule } from './auth/auth.module';
 import { ApolloServer } from 'apollo-server-express';
 import { GraphQLModule, GraphQLFactory } from '@nestjs/graphql';
 
 @Module({
-  imports: [TypeOrmModule.forRoot(), UserModule, GraphQLModule], // get config from ormconfig.json,
+  imports: [TypeOrmModule.forRoot(), UserModule, AuthModule, GraphQLModule], // get config from ormconfig.json,
 })
 
 export class AppModule {
