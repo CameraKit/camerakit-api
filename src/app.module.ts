@@ -5,9 +5,10 @@ import { UserModule } from './user/user.module';
 import { AuthModule } from './auth/auth.module';
 import { ApolloServer } from 'apollo-server-express';
 import { GraphQLModule, GraphQLFactory } from '@nestjs/graphql';
+import { AppController } from 'app.controller';
 
 @Module({
-  imports: [TypeOrmModule.forRoot(), UserModule, AuthModule, GraphQLModule], // get config from ormconfig.json,
+  imports: [TypeOrmModule.forRoot(), GraphQLModule, UserModule, AuthModule], // get config from ormconfig.json,
 })
 
 export class AppModule {

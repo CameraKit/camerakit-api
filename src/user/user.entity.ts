@@ -8,18 +8,24 @@ export class User {
   @Column({ length: 254 })
   email: string;
 
-  @Column()
-  emailConfirmed: boolean;
+  @Column({ length: 100, nullable: true })
+  password: string|undefined;
 
-  @Column({ length: 50 })
+  @Column({ length:100, nullable: true })
+  passwordHash: string|undefined;
+
+  @Column({ nullable: true })
+  emailConfirmed: boolean|false;
+
+  @Column({ length:100, nullable: true })
   firstName: string;
 
-  @Column({ length: 50 })
+  @Column({ length:100, nullable: true })
   lastName: string;
 
-  @Column({ length: 100 })
+  @Column({ length:100, nullable: true })
   companyName: string;
 
-  @Column({ length: 1000 })
+  @Column({ length:100, nullable: true })
   companyDescription: string;
 }

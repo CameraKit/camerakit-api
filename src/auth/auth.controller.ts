@@ -1,19 +1,46 @@
-import { Controller, Get, UseGuards } from '@nestjs/common';
-import { AuthGuard } from '@nestjs/passport';
+import { Controller, Post, HttpStatus, HttpCode, Get, Res, Body } from '@nestjs/common';
 import { AuthService } from './auth.service';
+import { UserService } from '../user/user.service';
+import { User } from '../user/user.entity';
 
 @Controller('auth')
 export class AuthController {
-  constructor(private readonly authService: AuthService) {}
+  constructor(
+    private readonly authService: AuthService,
+    private readonly userService: UserService) {}
 
-  @Get('token')
-  async createToken(): Promise<any> {
-    return await this.authService.createToken();
+  @Post('login')
+  async loginUser(@Res() res: any, @Body() body: User) {
+    if (!(body && body.email && body.password)) {
+      return res.status(HttpStatus.FORBIDDEN).send(JSON.stringify({ message: 'Email and password are required!' }));
+    }
+
+    const user = await this.userService.getUserByUsername(body.email);
+
+    if (user) {
+      if (await this.userService.compareHash(body.password, user.passwordHash)) {
+        return res.status(HttpStatus.OK).send(JSON.stringify(await this.authService.createToken(user.id, user.email)));
+      }
+    }
+
+    return res.status(HttpStatus.FORBIDDEN).send(JSON.stringify({ message: 'Email or password wrong!' }));
   }
 
-  @Get('data')
-  @UseGuards(AuthGuard('jwt'))
-  findAll() {
-    // this route is restricted
+  @Post('register')
+  async registerUser(@Res() res: any, @Body() body: User) {
+    if (!(body && body.email && body.password)) {
+      return res.status(HttpStatus.FORBIDDEN).send(JSON.stringify({ message: 'Email and password are required!' }));
+    }
+
+    let user = await this.userService.getUserByUsername(body.email);
+
+    if (user) {
+      return res.status(HttpStatus.FORBIDDEN).send(JSON.stringify({ message: 'Email exists' }));
+    }
+    user = await this.userService.createUser(body);
+    if (user) {
+      user.passwordHash = undefined;
+    }
+    return res.status(HttpStatus.OK).send(JSON.stringify(user));
   }
 }
