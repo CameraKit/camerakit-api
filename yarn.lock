@@ -429,13 +429,13 @@ ajv@^5.3.0:
     json-schema-traverse "^0.3.0"
 
 ajv@^6.0.0, ajv@^6.1.0, ajv@^6.5.1, ajv@^6.5.2:
-  version "6.5.2"
-  resolved "https://registry.yarnpkg.com/ajv/-/ajv-6.5.2.tgz#678495f9b82f7cca6be248dd92f59bff5e1f4360"
+  version "6.5.3"
+  resolved "https://registry.yarnpkg.com/ajv/-/ajv-6.5.3.tgz#71a569d189ecf4f4f321224fecb166f071dd90f9"
   dependencies:
     fast-deep-equal "^2.0.1"
     fast-json-stable-stringify "^2.0.0"
     json-schema-traverse "^0.4.1"
-    uri-js "^4.2.1"
+    uri-js "^4.2.2"
 
 align-text@^0.1.1, align-text@^0.1.3:
   version "0.1.4"
@@ -532,9 +532,9 @@ apollo-server-caching@0.1.2:
   dependencies:
     lru-cache "^4.1.3"
 
-apollo-server-core@2.0.2:
-  version "2.0.2"
-  resolved "https://registry.yarnpkg.com/apollo-server-core/-/apollo-server-core-2.0.2.tgz#7d3fd0a16d8d09a231185bdbd08767fed634e068"
+apollo-server-core@2.0.3:
+  version "2.0.3"
+  resolved "https://registry.yarnpkg.com/apollo-server-core/-/apollo-server-core-2.0.3.tgz#60313f0d53622f849b98e6a43d3a77fb69a7cfdd"
   dependencies:
     "@types/ws" "^5.1.2"
     apollo-cache-control "0.2.2"
@@ -565,9 +565,9 @@ apollo-server-errors@2.0.2:
   version "2.0.2"
   resolved "https://registry.yarnpkg.com/apollo-server-errors/-/apollo-server-errors-2.0.2.tgz#e9cbb1b74d2cd78aed23cd886ca2d0c186323b2b"
 
-apollo-server-express@^2.0.2:
-  version "2.0.2"
-  resolved "https://registry.yarnpkg.com/apollo-server-express/-/apollo-server-express-2.0.2.tgz#174fcde07c203f1d06099d599f1e393cd217c54f"
+apollo-server-express@^2.0.3:
+  version "2.0.3"
+  resolved "https://registry.yarnpkg.com/apollo-server-express/-/apollo-server-express-2.0.3.tgz#d11c0a2bfd763050d79f79f4e41e327a847675c3"
   dependencies:
     "@apollographql/graphql-playground-html" "^1.6.0"
     "@types/accepts" "^1.3.5"
@@ -575,7 +575,7 @@ apollo-server-express@^2.0.2:
     "@types/cors" "^2.8.4"
     "@types/express" "4.16.0"
     accepts "^1.3.5"
-    apollo-server-core "2.0.2"
+    apollo-server-core "2.0.3"
     apollo-upload-server "^5.0.0"
     body-parser "^1.18.3"
     cors "^2.8.4"
@@ -599,8 +599,8 @@ apollo-upload-server@^5.0.0:
     object-path "^0.11.4"
 
 apollo-utilities@^1.0.0, apollo-utilities@^1.0.1:
-  version "1.0.18"
-  resolved "https://registry.yarnpkg.com/apollo-utilities/-/apollo-utilities-1.0.18.tgz#e4ee91534283fde2b744a26caaea120fe6a94f67"
+  version "1.0.19"
+  resolved "https://registry.yarnpkg.com/apollo-utilities/-/apollo-utilities-1.0.19.tgz#f2d253bb8aa1395b62ded2f7749884233b5838e2"
   dependencies:
     fast-json-stable-stringify "^2.0.0"
 
@@ -2172,9 +2172,9 @@ fastify-plugin@^1.0.0, fastify-plugin@^1.2.0:
   dependencies:
     semver "^5.5.0"
 
-fastify-static@^0.13.0:
-  version "0.13.0"
-  resolved "https://registry.yarnpkg.com/fastify-static/-/fastify-static-0.13.0.tgz#32edb9f42162bd23cc1ddf8ed1f9ea39675187bc"
+fastify-static@^0.14.0:
+  version "0.14.0"
+  resolved "https://registry.yarnpkg.com/fastify-static/-/fastify-static-0.14.0.tgz#e8f914cce72a8d6e40abfeb896c07458d4eaa3fe"
   dependencies:
     fastify-plugin "^1.2.0"
     readable-stream "^3.0.0"
@@ -2523,6 +2523,12 @@ graphql-tools@^3.0.4:
     deprecated-decorator "^0.1.6"
     iterall "^1.1.3"
     uuid "^3.1.0"
+
+graphql@^0.13.2:
+  version "0.13.2"
+  resolved "https://registry.yarnpkg.com/graphql/-/graphql-0.13.2.tgz#4c740ae3c222823e7004096f832e7b93b2108270"
+  dependencies:
+    iterall "^1.2.1"
 
 growly@^1.3.0:
   version "1.3.0"
@@ -5123,8 +5129,8 @@ semver-store@^0.3.0:
   resolved "https://registry.yarnpkg.com/semver-store/-/semver-store-0.3.0.tgz#ce602ff07df37080ec9f4fb40b29576547befbe9"
 
 "semver@2 || 3 || 4 || 5", semver@^5.0.1, semver@^5.0.3, semver@^5.1.0, semver@^5.3.0, semver@^5.4.1, semver@^5.5.0:
-  version "5.5.0"
-  resolved "https://registry.yarnpkg.com/semver/-/semver-5.5.0.tgz#dc4bbc7a6ca9d916dee5d43516f0092b58f7b8ab"
+  version "5.5.1"
+  resolved "https://registry.yarnpkg.com/semver/-/semver-5.5.1.tgz#7dfdd8814bdb7cabc7be0fb1d734cfb66c940477"
 
 semver@4.3.2:
   version "4.3.2"
@@ -5705,9 +5711,9 @@ ts-jest@^23.1.3:
     fs-extra "6.0.1"
     lodash "^4.17.10"
 
-ts-loader@^4.1.0:
-  version "4.4.2"
-  resolved "https://registry.yarnpkg.com/ts-loader/-/ts-loader-4.4.2.tgz#778d4464b24436873c78f7f9e914d88194c2a248"
+ts-loader@^4.5.0:
+  version "4.5.0"
+  resolved "https://registry.yarnpkg.com/ts-loader/-/ts-loader-4.5.0.tgz#a1ce70b2dc799941fb2197605f0d67874097859b"
   dependencies:
     chalk "^2.3.0"
     enhanced-resolve "^4.0.0"
@@ -5962,7 +5968,7 @@ update-notifier@^2.3.0:
     semver-diff "^2.0.0"
     xdg-basedir "^3.0.0"
 
-uri-js@^4.2.1:
+uri-js@^4.2.2:
   version "4.2.2"
   resolved "https://registry.yarnpkg.com/uri-js/-/uri-js-4.2.2.tgz#94c540e1ff772956e2299507c010aea6c8838eb0"
   dependencies:
