@@ -1,0 +1,27 @@
+body {
+    background-color: #263238;
+    display: table-cell;
+    height: 100vh;
+    margin: 0px;
+    vertical-align: middle;
+    width: 100vw;
+}
+
+.splash-container {
+    display: flex;
+    flex-direction: column;
+    margin-left: -50px;
+}
+
+.splash-flex {
+    flex: 1;
+    margin: -100px auto 0 auto;
+    width: 500px;
+}
+
+.splash-text {
+    color: #63ef52;
+    flex: 1;
+    font: 100 2em 'Roboto';
+    text-align: right;
+}

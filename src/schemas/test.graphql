@@ -1,0 +1,13 @@
+type User {
+    id: ID!
+    email: String
+    email_confirmed: Boolean
+    first_name: String
+    last_name: String
+    company_name: String
+    company_description: String
+}
+
+type Query {
+    User(id: ID!): User
+}
