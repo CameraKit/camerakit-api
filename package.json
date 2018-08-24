@@ -25,6 +25,7 @@
     "apollo-server-express": "^2.0.4",
     "bcrypt": "^3.0.0",
     "cors": "^2.8.4",
+    "dotenv": "^6.0.0",
     "fastify": "^1.10.0",
     "fastify-formbody": "^2.0.0",
     "fastify-static": "^0.14.0",

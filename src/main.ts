@@ -2,8 +2,10 @@ import { NestFactory, FastifyAdapter } from '@nestjs/core';
 import { AppModule } from './app.module';
 import * as path from 'path';
 import * as cors from 'cors';
+import * as dotenv from 'dotenv';
 
 async function bootstrap() {
+  dotenv.configure && dotenv.configure();
   const app = await NestFactory.create(AppModule, new FastifyAdapter());
   app.useStaticAssets({
     prefix: '/',

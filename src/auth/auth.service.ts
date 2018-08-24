@@ -9,7 +9,7 @@ export class AuthService {
   async createToken(id: number, email: string) {
     const user: JwtPayload = { email };
     const expiresIn = 3600;
-    const accessToken = jwt.sign(user, 'secretKey', { expiresIn });
+    const accessToken = jwt.sign(user, process.env.AUTH_SECRET, { expiresIn });
     return {
       expiresIn,
       accessToken,
