@@ -1,4 +1,4 @@
-import { Controller, Post, HttpStatus, HttpCode, Get, Res, Body } from '@nestjs/common';
+import { Controller, Post, HttpStatus, Res, Body } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { UserService } from '../user/user.service';
 import { User } from '../user/user.entity';
@@ -15,7 +15,7 @@ export class AuthController {
       return res.status(HttpStatus.FORBIDDEN).send(JSON.stringify({ message: 'Email and password are required!' }));
     }
 
-    const user = await this.userService.getUserByUsername(body.email);
+    const user = await this.userService.getUserByEmail(body.email);
 
     if (user) {
       if (await this.userService.compareHash(body.password, user.passwordHash)) {
@@ -32,7 +32,7 @@ export class AuthController {
       return res.status(HttpStatus.FORBIDDEN).send(JSON.stringify({ message: 'Email and password are required!' }));
     }
 
-    let user = await this.userService.getUserByUsername(body.email);
+    let user = await this.userService.getUserByEmail(body.email);
 
     if (user) {
       return res.status(HttpStatus.FORBIDDEN).send(JSON.stringify({ message: 'Email exists' }));

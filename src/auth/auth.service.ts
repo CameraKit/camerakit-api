@@ -16,10 +16,11 @@ export class AuthService {
     };
   }
 
-  async validateUser(payload: JwtPayload): Promise<boolean> {
-    if (payload && payload.email) {
-      return Boolean(this.userService.getUserByUsername(payload.email));
+  async validateUser(signedUser): Promise<boolean> {
+    if (signedUser && signedUser.email) {
+      return Boolean(this.userService.getUserByEmail(signedUser.email));
     }
+
     return false;
   }
 }

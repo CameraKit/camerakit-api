@@ -3,7 +3,6 @@ import { PassportStrategy } from '@nestjs/passport';
 import { AuthService } from '../auth.service';
 import * as passport from 'passport';
 import { Injectable, UnauthorizedException } from '@nestjs/common';
-import { JwtPayload } from '../interfaces/jwt-payload.interface';
 
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy) {
@@ -16,15 +15,15 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
       },
       async (req, payload, next) => await this.verify(req, payload, next),
     );
-    passport.use(this);
+    passport.use('jwt', this);
 
   }
 
   public async verify(req, payload, done) {
     const isValid = await this.authService.validateUser(payload);
     if (!isValid) {
-      return done('Unauthorized', false);
+      return done(new UnauthorizedException(), false);
     }
-    done(null, payload);
+    done(null, isValid);
   }
 }
