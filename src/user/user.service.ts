@@ -5,7 +5,6 @@ import { User } from './user.entity';
 import * as bcrypt from 'bcrypt';
 import * as Stripe from 'stripe';
 
-
 @Injectable()
 export class UserService {
   private stripe = Stripe(process.env.STRIPE_SECRET_API_KEY);
@@ -41,13 +40,13 @@ export class UserService {
   }
 
   async addSponsorship(amount: number, currency: string, description: string, source: any){
-    let { status } = await this.stripe.charges.create({
+    const { status } = await this.stripe.charges.create({
       amount,
       currency,
       description,
-      source
+      source,
     });
-    
+
     return status;
   }
 }
