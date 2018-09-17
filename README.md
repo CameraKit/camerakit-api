@@ -2,11 +2,35 @@
 
 The API to support the website of one of the hardest Android APIs.
 
-## Installation
+## Setup
 
+### Install Dependencies
 ```bash
 $ yarn
 ```
+### Create local PostgreSQL Server
+First install postgres:
+```bash
+$ brew install postresql
+```
+The default database is named `postgres`. To interact with the database type:
+```bash
+$ psql postgres
+
+postgres=#
+```
+Next set the password for the default user. 
+```bash
+# See the current users
+postgres=# \du 
+
+# Set password for a user
+postgres=# \password <Role Name>
+
+# Exit psql
+postgres=# \q
+```
+Finally setup the .env file from Dropbox with your database information. 
 
 ## Running the app
 
