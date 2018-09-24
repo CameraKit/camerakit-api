@@ -15,7 +15,10 @@ export class UserController {
   @Post('sponsor')
   @UseGuards(AuthGuard('jwt', { session: false }))
   addSponsorship(@Body() body: any, @Res() res: any) {
-    const status = this.userService.addSponsorship(500, 'usd', 'An example charge', body.token);
-    return res.status(HttpStatus.OK).send(JSON.stringify({ status }));
+    if (body.amount != null) {
+      const status = this.userService.addSponsorship(body.amount, 'usd', 'An example charge', body.token);
+      return res.status(HttpStatus.OK).send(JSON.stringify({ ok: true, status }));
+    }
+    return res.status(HttpStatus.OK).send(JSON.stringify({ error: 'no amount specified'}));
   }
 }
