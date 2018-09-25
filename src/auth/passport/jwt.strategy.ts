@@ -3,15 +3,16 @@ import { PassportStrategy } from '@nestjs/passport';
 import { AuthService } from '../auth.service';
 import * as passport from 'passport';
 import { Injectable, UnauthorizedException } from '@nestjs/common';
+import { ConfigService } from '../../config/config.service';
 
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy) {
-  constructor(private readonly authService: AuthService) {
+  constructor(private readonly authService: AuthService, config: ConfigService) {
     super(
       {
         jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
         passReqToCallback: true,
-        secretOrKey: process.env.AUTH_SECRET,
+        secretOrKey: config.passportAuthSecret,
       },
       async (req, payload, next) => await this.verify(req, payload, next),
     );

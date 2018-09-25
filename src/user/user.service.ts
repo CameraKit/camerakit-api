@@ -4,16 +4,20 @@ import { Repository } from 'typeorm';
 import { User } from './user.entity';
 import * as bcrypt from 'bcrypt';
 import * as Stripe from 'stripe';
+import { ConfigService } from '../config/config.service';
 
 @Injectable()
 export class UserService {
-  private stripe = Stripe(process.env.STRIPE_SECRET_API_KEY);
   private saltRounds = 10;
+  private stripe;
 
   constructor(
     @InjectRepository(User)
     private readonly userRepository: Repository<User>,
-  ) {}
+    config: ConfigService,
+  ) {
+    this.stripe = Stripe(config.stripeSecretApiKey);
+  }
 
   async getUsers(): Promise<User[]> {
     return await this.userRepository.find();

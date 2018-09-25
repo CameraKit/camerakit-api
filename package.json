@@ -30,6 +30,7 @@
     "fastify-formbody": "^2.0.0",
     "fastify-static": "^0.14.0",
     "graphql": "^0.13.2",
+    "joi": "^13.6.0",
     "jsonwebtoken": "^8.3.0",
     "passport": "^0.4.0",
     "passport-jwt": "^4.0.0",
