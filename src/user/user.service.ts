@@ -1,7 +1,7 @@
 import { Injectable, Inject } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { User } from './user.entity';
+import { Users } from './user.entity';
 import * as bcrypt from 'bcrypt';
 import * as Stripe from 'stripe';
 import { ConfigService } from '../config/config.service';
@@ -12,22 +12,22 @@ export class UserService {
   private stripe;
 
   constructor(
-    @InjectRepository(User)
-    private readonly userRepository: Repository<User>,
+    @InjectRepository(Users)
+    private readonly userRepository: Repository<Users>,
     config: ConfigService,
   ) {
     this.stripe = Stripe(config.stripeSecretApiKey);
   }
 
-  async getUsers(): Promise<User[]> {
+  async getUsers(): Promise<Users[]> {
     return await this.userRepository.find();
   }
 
-  async getUserByEmail(email: string): Promise<User> {
+  async getUserByEmail(email: string): Promise<Users> {
     return (await this.userRepository.find({ email }))[0];
   }
 
-  async createUser(user: User): Promise<User> {
+  async createUser(user: Users): Promise<Users> {
     user.passwordHash = await this.getHash(user.password);
 
     // clear password as we don't persist passwords

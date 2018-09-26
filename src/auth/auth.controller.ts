@@ -1,7 +1,7 @@
 import { Controller, Post, HttpStatus, Res, Body } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { UserService } from '../user/user.service';
-import { User } from '../user/user.entity';
+import { Users } from '../user/user.entity';
 
 @Controller('auth')
 export class AuthController {
@@ -10,7 +10,7 @@ export class AuthController {
     private readonly userService: UserService) {}
 
   @Post('login')
-  async loginUser(@Res() res: any, @Body() body: User) {
+  async loginUser(@Res() res: any, @Body() body: Users) {
     if (!(body && body.email && body.password)) {
       return res.status(HttpStatus.FORBIDDEN).send(JSON.stringify({ message: 'Email and password are required!' }));
     }
@@ -27,7 +27,7 @@ export class AuthController {
   }
 
   @Post('register')
-  async registerUser(@Res() res: any, @Body() body: User) {
+  async registerUser(@Res() res: any, @Body() body: Users) {
     if (!(body && body.email && body.password)) {
       return res.status(HttpStatus.FORBIDDEN).send(JSON.stringify({ message: 'Email and password are required!' }));
     }
