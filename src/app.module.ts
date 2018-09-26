@@ -6,9 +6,12 @@ import { UserModule } from './user/user.module';
 import { AuthModule } from './auth/auth.module';
 import { ApolloServer } from 'apollo-server-express';
 import { GraphQLModule, GraphQLFactory } from '@nestjs/graphql';
+import { ConfigService } from './config/config.service';
+
+const configService = new ConfigService('.env');
 
 @Module({
-  imports: [TypeOrmModule.forRoot(), GraphQLModule, UserModule, AuthModule, ConfigModule], // get config from ormconfig.json,
+  imports: [TypeOrmModule.forRoot(configService.databaseConfig), GraphQLModule, UserModule, AuthModule, ConfigModule], // get config from ormconfig.json,
 })
 
 export class AppModule {

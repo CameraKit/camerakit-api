@@ -4,8 +4,28 @@ The API to support the website of one of the hardest Android APIs.
 
 ## Installation
 
+Install dependencies
 ```bash
 $ yarn
+```
+Configure `.env` file. **An error will be thrown for extra or missing variables.**
+
+```
+variable                   type    default
+-----------------------------------------------------
+TYPEORM_CONNECTION         string  postgres
+TYPEORM_HOST               string
+TYPEORM_USERNAME           string
+TYPEORM_PASSWORD           string
+TYPEORM_DATABASE           string  postgres
+TYPEORM_PORT               number  5432
+TYPEORM_SYNCHRONIZE        boolean true
+TYPEORM_LOGGING            boolean true
+TYPEORM_ENTITIES           string  src/**/*.entity.ts
+SERVER_PORT                number  3001
+PASSPORT_AUTH_SECRET       string
+STRIPE_PUBLISHABLE_API_KEY string
+STRIPE_SECRET_API_KEY      string
 ```
 
 ## Running the app
