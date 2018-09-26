@@ -1,8 +1,8 @@
 import { Injectable, Inject } from '@nestjs/common';
 import { Contact } from './contact.entity';
 
-const nodemailer = require('nodemailer');
-const Email = require('email-templates');
+import * as nodemailer from 'nodemailer';
+import * as Email from 'email-templates';
 
 @Injectable()
 export class ContactService {
