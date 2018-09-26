@@ -11,7 +11,7 @@ export class ContactService {
     port: 465,
     secure: true,
     auth: {
-      user: process.env.EMAIL_ADDRS,
+      user: process.env.EMAIL_ADDRESS,
       pass: process.env.EMAIL_PASSWORD
     }
   });
