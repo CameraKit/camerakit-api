@@ -12,11 +12,13 @@ export class ContactController {
       return res.status(HttpStatus.FORBIDDEN).send(JSON.stringify({ message: 'Name, Email, Company and Message are required!' }));
     }
 
-    var error = await this.contactService.sendEmail(body);
+    var response = await this.contactService.sendEmail(body);
 
-    if (error) {
-      return res.status(HttpStatus.FORBIDDEN).send(JSON.stringify({ message: 'Error sending the email' }));
+    if (typeof response === 'undefined') {
+      return res.status(HttpStatus.INTERNAL_SERVER_ERROR).send(JSON.stringify({ message: 'Error sending the email' }));
     }
-    return res.status(HttpStatus.OK).send(JSON.stringify({ message: 'Success' }));
+    else {
+      res.status(HttpStatus.OK).send(JSON.stringify({ message: 'Success' }));
+    }
   }
 }

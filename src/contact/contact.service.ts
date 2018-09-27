@@ -28,27 +28,24 @@ export class ContactService {
     }
   });
 
-  async sendEmail(contact: Contact): Promise<String> {
-    var response = '';
-
-    this.email.send({
-      template: 'ck-contact',
-      message: {
-        to: process.env.EMAIL_RECIEVER
-      },
-      locals: {
-        name: contact.name,
-        company: contact.company,
-        email: contact.email,
-        message: contact.message,
-      }
-    })
-    .then((success) => {
-      console.log(success);
-    })
-    .catch((error) => {
-      response = error;
-    });
+  async sendEmail(contact: Contact): Promise<string> {  
+    var response;
+    try {
+      response = await this.email.send({
+        template: 'ck-contact',
+        message: {
+          to: process.env.EMAIL_RECIEVER
+        },
+        locals: {
+          name: contact.name,
+          company: contact.company,
+          email: contact.email,
+          message: contact.message,
+        }
+      });
+    } catch (error) {
+      console.error(error);
+    }
     return response;
-  }  
+  }
 }
