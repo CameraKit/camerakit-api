@@ -9,17 +9,18 @@ export class AuthService {
   async createToken(id: number, email: string) {
     const user: JwtPayload = { email };
     const expiresIn = 3600;
-    const accessToken = jwt.sign(user, 'secretKey', { expiresIn });
+    const accessToken = jwt.sign(user, process.env.AUTH_SECRET, { expiresIn });
     return {
       expiresIn,
       accessToken,
     };
   }
 
-  async validateUser(payload: JwtPayload): Promise<boolean> {
-    if (payload && payload.email) {
-      return Boolean(this.userService.getUserByUsername(payload.email));
+  async validateUser(signedUser): Promise<boolean> {
+    if (signedUser && signedUser.email) {
+      return Boolean(this.userService.getUserByEmail(signedUser.email));
     }
+
     return false;
   }
 }
