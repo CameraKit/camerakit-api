@@ -62,3 +62,6 @@ typings/
 *.map
 .vscode/launch.json
 dist
+
+# AWS config
+config.json
