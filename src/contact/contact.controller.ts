@@ -12,9 +12,10 @@ export class ContactController {
       return res.status(HttpStatus.FORBIDDEN).send(JSON.stringify({ message: 'Name, Email, Company and Message are required!' }));
     }
 
-    var response = await this.contactService.sendEmail(body);
+    var confirmationResponse = await this.contactService.sendConfirmationEmail(body);
+    var internalResponse = await this.contactService.sendInternalEmail(body);
 
-    if (typeof response === 'undefined') {
+    if (typeof confirmationResponse === 'undefined' || typeof internalResponse === 'undefined') {
       return res.status(HttpStatus.INTERNAL_SERVER_ERROR).send(JSON.stringify({ message: 'Error sending the email' }));
     }
     else {

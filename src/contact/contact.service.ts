@@ -16,30 +16,68 @@ export class ContactService {
     })
   });
 
-  private email = new Email({
-    message: {
-      from: process.env.EMAIL_ADDRESS
-    },
-    send: true,
-    preview: false,
-    transport: this.transporter,
-    views: {
-      root: './static/emails/',
-    }
-  });
+  async sendConfirmationEmail(contact: Contact): Promise<string> {  
+    var confirmationEmail = new Email({
+      message: {
+        from: 'noreply@camerakit.email',
+        to: contact.email
+      },
+      send: true,
+      preview: false,
+      transport: this.transporter,
+      views: {
+        root: './static/emails/',
+      },
+      juice: true,
+      juiceResources: {
+        preserveImportant: true,
+        webResources: {
+          relativeTo: path.join(__dirname, '../../static')
+        }
+      }
+    });
 
-  async sendEmail(contact: Contact): Promise<string> {  
     var response;
     try {
-      response = await this.email.send({
-        template: 'ck-contact',
-        message: {
-          to: process.env.EMAIL_RECIEVER
-        },
+      response = await confirmationEmail.send({
+        template: 'ck-contact-confirmation',
+      });
+    } catch (error) {
+      console.error(error);
+    }
+    return response;
+  }
+
+  async sendInternalEmail(contact: Contact): Promise<string> {  
+    var internalEmail = new Email({
+      message: {
+        from: 'noreply@camerakit.email',
+        to: 'noreply@camerakit.email'
+      },
+      send: true,
+      preview: false,
+      transport: this.transporter,
+      template: 'ck-contact-internal',
+      views: {
+        root: './static/emails/',
+      },
+      juice: true,
+      juiceResources: {
+        preserveImportant: true,
+        webResources: {
+          relativeTo: path.join(__dirname, '../../static')
+        }
+      }
+    });
+
+    var response;
+    try {
+      response = await internalEmail.send({
+        template: 'ck-contact-internal',
         locals: {
           name: contact.name,
-          company: contact.company,
           email: contact.email,
+          company: contact.company,
           message: contact.message,
         }
       });
