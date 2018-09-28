@@ -22,7 +22,6 @@ export class ContactService {
         from: 'noreply@camerakit.email',
         to: contact.email
       },
-      send: true,
       preview: false,
       transport: this.transporter,
       views: {
@@ -37,10 +36,25 @@ export class ContactService {
       }
     });
 
+    if (process.env.NODE_ENV === 'development') {
+      console.log("EMAIL-LOG confirmation:");
+      confirmationEmail.render('../../static/emails/ck-contact-confirmation/text', {
+        name: contact.name,
+        email: contact.email,
+        company: contact.company,
+        message: contact.message,
+      })
+      .then(console.log)
+      .catch(console.error);
+    }
+
     var response;
     try {
       response = await confirmationEmail.send({
         template: 'ck-contact-confirmation',
+        locals: {
+          message: contact.message,
+        }
       });
     } catch (error) {
       console.error(error);
@@ -54,7 +68,6 @@ export class ContactService {
         from: 'noreply@camerakit.email',
         to: 'noreply@camerakit.email'
       },
-      send: true,
       preview: false,
       transport: this.transporter,
       template: 'ck-contact-internal',
@@ -69,6 +82,19 @@ export class ContactService {
         }
       }
     });
+
+
+    if (process.env.NODE_ENV === 'development') {
+      console.log("EMAIL-LOG internal:")
+      internalEmail.render('../../static/emails/ck-contact-internal/text', {
+        name: contact.name,
+        email: contact.email,
+        company: contact.company,
+        message: contact.message,
+      })
+      .then(console.log)
+      .catch(console.error);
+    }
 
     var response;
     try {
