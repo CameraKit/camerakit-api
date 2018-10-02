@@ -6,11 +6,9 @@ import * as Email from 'email-templates';
 import * as aws from 'aws-sdk';
 import * as path from 'path';
 
-import config from '../../config.js';
-
-aws.config.accessKeyId = config.AWS_SES.ACCESS_KEY_ID;
-aws.config.secretAccessKey = config.AWS_SES.SECRET_ACCESS_KEY;
-aws.config.region = config.AWS_SES.REGION;
+aws.config.accessKeyId = process.env.AWS_SES_ACCESS_KEY_ID;
+aws.config.secretAccessKey = process.env.AWS_SES_SECRET_ACCESS_KEY;
+aws.config.region = process.env.AWS_SES_REGION;
 
 @Injectable()
 export class ContactService {
