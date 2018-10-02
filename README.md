@@ -11,7 +11,7 @@ $ yarn
 ### Create local PostgreSQL Server
 First install postgres:
 ```bash
-$ brew install postresql
+$ brew install postgresql
 ```
 The default database is named `postgres`. To interact with the database type:
 ```bash
@@ -30,14 +30,31 @@ postgres=# \password <Role Name>
 # Exit psql
 postgres=# \q
 ```
-Finally setup the .env file from Dropbox with your database information. 
 
 ### Environment Variables
-We need to declare additional environment variables as shown below. Make sure you update the `<value>` tags with their actual values meant for production.
+The environment variables live in the `.env` file. This file is loaded by the dotenv loader in `main.ts`. There are variables for both database and CORS setup. Below is the `.env` file specification.
 ```
-ALLOWED_ORIGINS=['<URL>','<URL>']
-ALLOWED_METHODS='<method>,<method>'
+variable                   type    sample value
+-----------------------------------------------------
+TYPEORM_CONNECTION         string  postgres
+TYPEORM_URL                string  postgres://<username>:<password>@<domain>:<port>/postgres
+TYPEORM_SYNCHRONIZE        boolean true
+TYPEORM_DATABASE           string  postgres
+TYPEORM_PORT               number  5432
+TYPEORM_ENTITIES           string  src/**/*.entity.ts
+SERVER_PORT                number  3001
+ALLOWED_ORIGINS            array   ['http://localhost:3000']
+ALLOWED_METHODS            string  'GET,HEAD,PUT,PATCH,POST,DELETE'
+AWS_SES_ACCESS_KEY_ID      string  dCEa39ymXcgM9XF3HT8g
+AWS_SES_SECRET_ACCESS_KEY  string  DoMcYU12AD3MAzD4tRlXSz5Z0XxC1MipofloVjYf
+AWS_SES_REGION             string  us-east-1
 ```
+
+`ALLOWED_ORIGINS` is an array of strings. Each string is an entire url including protocol, domain and port. 
+
+`ALLOWED_METHODS` is a comma separated list of methods surrounded by quotes. 
+
+An example env file `.env.sample` is included in this repository.
 
 ## Running the app
 
@@ -65,40 +82,37 @@ $ yarn test:e2e
 $ yarn test:cov
 ```
 ## API
+```
+Endpoint          Method    Params            
+---------------------------------------------
+/auth/login       POST      email:    string
+                            password: string
 
-* **URL**
+/auth/register    POST      email:    string
+                            password: string
 
-  /auth/register
-  
-  /auth/login
+/contact          POST      email:    string
+                            name:     string
+                            company:  string
+                            message:  string
+```
 
-* **Method:**
+Responses
+```
+Endpoint          Success Response                      Error Response
+--------------------------------------------------------------------------------------------------------------------------------
+/auth/login       code: 200                             code: 403
+                  content: { user }                     content: { "message": "Email or password wrong!" },
+                                                                 { "message": "Email and password are required!" }
 
-  `POST`
-  
-* **Data Params**
+/auth/register    code: 200                             code: 403
+                  content: { expresIn, accessToken }    content: { "message": "Email exists" }
+                                                                 { "message": "Email and password are required!" }
 
-  `email=[string]`
-  
-  `password=[string]`
+/contact          code: 200
+                  content: { "message": "Success" }     code: 403
+                                                        content: { "message": "Name, Email, Company and Message are required" }
 
-* **Success Response:**
-
-  /login
-  * **Code:** 200 <br />
-  * **Content:** `{ user }`
-    
-  /register
-  * **Code:** 200 <br />
-  *  **Content:** `{ expresIn, accessToken }`
-
-* **Error Response:**
-
-  /login
-  
-    **Content:** `{"message":"Email exists"}`, `{"message":"Email and password are required!"}`
-    
-  /register
-  
-    **Content:** `{"message":"Email or password wrong!"}`, `{"message":"Email and password are required!"}`
-
+                                                        code: 500
+                                                        content: { "message": "Error sending the email" }
+```
