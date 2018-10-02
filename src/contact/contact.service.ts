@@ -6,7 +6,11 @@ import * as Email from 'email-templates';
 import * as aws from 'aws-sdk';
 import * as path from 'path';
 
-aws.config.loadFromPath(path.join(__dirname, '../../config.json'));
+import config from '../../config.js';
+
+aws.config.accessKeyId = config.AWS_SES.ACCESS_KEY_ID;
+aws.config.secretAccessKey = config.AWS_SES.SECRET_ACCESS_KEY;
+aws.config.region = config.AWS_SES.REGION;
 
 @Injectable()
 export class ContactService {
@@ -36,6 +40,7 @@ export class ContactService {
       }
     });
 
+    console.log(process.env.NODE_ENV);
     if (process.env.NODE_ENV === 'development') {
       console.log("EMAIL-LOG confirmation:");
       confirmationEmail.render('../../static/emails/ck-contact-confirmation/text', {
