@@ -32,6 +32,13 @@ postgres=# \q
 ```
 Finally setup the .env file from Dropbox with your database information. 
 
+### Environment Variables
+We need to declare additional environment variables as shown below. Make sure you update the `<value>` tags with their actual values meant for production.
+```
+ALLOWED_ORIGINS=['<URL>','<URL>']
+ALLOWED_METHODS='<method>,<method>'
+```
+
 ## Running the app
 
 ```bash
