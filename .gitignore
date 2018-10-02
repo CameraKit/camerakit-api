@@ -36,6 +36,9 @@ build/Release
 node_modules/
 jspm_packages/
 
+# NPM package information
+package-lock.json
+
 # TypeScript v1 declaration files
 typings/
 
@@ -64,4 +67,4 @@ typings/
 dist
 
 # AWS config
-config.json
+config.js
