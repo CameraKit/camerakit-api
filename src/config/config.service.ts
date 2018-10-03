@@ -26,9 +26,14 @@ export class ConfigService {
       TYPEORM_LOGGING: Joi.boolean().default(true),
       TYPEORM_ENTITIES: Joi.string().default('src/**/*.entity.ts'),
       SERVER_PORT: Joi.number().default(3001),
+      ALLOWED_ORIGINS: Joi.string(),
+      ALLOWED_METHODS: Joi.string(),
       PASSPORT_AUTH_SECRET: Joi.string(),
       STRIPE_PUBLISHABLE_API_KEY: Joi.string(),
       STRIPE_SECRET_API_KEY: Joi.string(),
+      AWS_SES_ACCESS_KEY_ID: Joi.string(),
+      AWS_SES_SECRET_ACCESS_KEY: Joi.string(),
+      AWS_SES_REGION: Joi.string()
     });
 
     const { error, value: validatedEnvConfig } = Joi.validate(
@@ -87,6 +92,12 @@ export class ConfigService {
   get serverPort(): number {
     return Number(this.envConfig.SERVER_PORT);
   }
+  get allowedOrigins(): Array<string> {
+    return this.envConfig.ALLOWED_ORIGINS.split(',').map(_=>_.trim());
+  }
+  get allowedMethods(): string {
+    return String(this.envConfig.ALLOWED_METHODS);
+  }
   get passportAuthSecret(): string {
     return String(this.envConfig.PASSPORT_AUTH_SECRET);
   }
@@ -95,5 +106,14 @@ export class ConfigService {
   }
   get stripeSecretApiKey(): string {
     return String(this.envConfig.STRIPE_SECRET_API_KEY);
+  }
+  get awsSesAccessKey(): string {
+    return String(this.envConfig.AWS_SES_ACCESS_KEY_ID);
+  }
+  get awsSesSecretAccessKey(): string {
+    return String(this.envConfig.AWS_SES_SECRET_ACCESS_KEY);
+  }
+  get awsSesRegion(): string {
+    return String(this.envConfig.AWS_SES_REGION);
   }
 }

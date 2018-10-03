@@ -1,17 +1,20 @@
 import { Injectable, Inject } from '@nestjs/common';
 import { Contact } from './contact.entity';
+import { ConfigService } from '../config/config.service';
 
 import * as nodemailer from 'nodemailer';
 import * as Email from 'email-templates';
 import * as aws from 'aws-sdk';
 import * as path from 'path';
 
-aws.config.accessKeyId = process.env.AWS_SES_ACCESS_KEY_ID;
-aws.config.secretAccessKey = process.env.AWS_SES_SECRET_ACCESS_KEY;
-aws.config.region = process.env.AWS_SES_REGION;
-
 @Injectable()
 export class ContactService {
+  constructor(config: ConfigService) {
+    aws.config.accessKeyId = config.awsSesAccessKey;
+    aws.config.secretAccessKey = config.awsSesSecretAccessKey;
+    aws.config.region = config.awsSesRegion;
+  }
+
   private transporter = nodemailer.createTransport({
     SES: new aws.SES({
       apiVersion: '2010-12-01'

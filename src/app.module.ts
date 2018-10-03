@@ -12,7 +12,7 @@ import { ConfigService } from './config/config.service';
 const configService = new ConfigService('.env');
 
 @Module({
-  imports: [TypeOrmModule.forRoot(), GraphQLModule, UserModule, AuthModule, ], // get config from ormconfig.json,
+  imports: [TypeOrmModule.forRoot(configService.databaseConfig), GraphQLModule, UserModule, AuthModule, ConfigModule, ContactModule], // get config from ormconfig.json,
 })
 
 export class AppModule {

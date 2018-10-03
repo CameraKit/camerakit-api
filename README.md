@@ -37,46 +37,28 @@ The environment variables live in the `.env` file. This file is loaded by the do
 variable                   type    sample value
 -----------------------------------------------------
 TYPEORM_CONNECTION         string  postgres
-TYPEORM_HOST               string  postgres://<username>:<password>@<domain>:<port>/postgres
-TYPEORM_SYNCHRONIZE        boolean true
-TYPEORM_DATABASE           string  postgres
-TYPEORM_PORT               number  5432
-TYPEORM_ENTITIES           string  src/**/*.entity.ts
-SERVER_PORT                number  3001
-ALLOWED_ORIGINS            array   ['http://localhost:3000']
-ALLOWED_METHODS            string  'GET,HEAD,PUT,PATCH,POST,DELETE'
-AWS_SES_ACCESS_KEY_ID      string  dCEa39ymXcgM9XF3HT8g
-AWS_SES_SECRET_ACCESS_KEY  string  DoMcYU12AD3MAzD4tRlXSz5Z0XxC1MipofloVjYf
-AWS_SES_REGION             string  us-east-1
-```
-<<<<<<< HEAD
-Install dependencies
-```bash
-$ yarn
-```
-Configure `.env` file. **An error will be thrown for extra or missing variables.**
-
-```
-variable                   type    default
------------------------------------------------------
-TYPEORM_CONNECTION         string  postgres
-TYPEORM_HOST               string
-TYPEORM_USERNAME           string
-TYPEORM_PASSWORD           string
-TYPEORM_DATABASE           string  postgres
+TYPEORM_HOST               string  localhost
+TYPEORM_USERNAME           string  root
+TYPEORM_PASSWORD           string  root
+TYPEORM_DATABASE           string  production
 TYPEORM_PORT               number  5432
 TYPEORM_SYNCHRONIZE        boolean true
 TYPEORM_LOGGING            boolean true
 TYPEORM_ENTITIES           string  src/**/*.entity.ts
 SERVER_PORT                number  3001
-PASSPORT_AUTH_SECRET       string
-STRIPE_PUBLISHABLE_API_KEY string
-STRIPE_SECRET_API_KEY      string
+PASSPORT_AUTH_SECRET       string  vc@oix3p32@ios4#fds$32pa
+STRIPE_PUBLISHABLE_API_KEY string  pk_test_oeKdoJLApxYsyAum
+STRIPE_SECRET_API_KEY      string  sk_test_KJ38a03KaduQw2
+ALLOWED_ORIGINS            string  https://yourdomain.tld,https://otherdomain.tld
+ALLOWED_METHODS            string  'GET,HEAD,PUT,PATCH,POST,DELETE'
+AWS_SES_ACCESS_KEY_ID      string  dCEa39ymXcgM9XF3HT8g
+AWS_SES_SECRET_ACCESS_KEY  string  DoMcYU12AD3MAzD4tRlXSz5Z0XxC1MipofloVjYf
+AWS_SES_REGION             string  us-east-1
 ```
-=======
-`ALLOWED_ORIGINS` is an array of strings. Each string is an entire url including protocol, domain and port. 
 
-`ALLOWED_METHODS` is a comma separated list of methods surrounded by quotes. 
+`ALLOWED_ORIGINS` is a comma separated list of URLs. Each URL includes protocol, domain and port. 
+
+`ALLOWED_METHODS` is a comma separated list of methods.
 
 An example env file `.env.sample` is included in this repository.
 
