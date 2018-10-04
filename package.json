@@ -25,7 +25,7 @@
     "@types/nodemailer": "^4.6.5",
     "apollo-server-express": "^2.0.3",
     "aws-sdk": "^2.324.0",
-    "bcrypt": "^3.0.0",
+    "bcrypt-nodejs": "^0.0.3",
     "cors": "^2.8.4",
     "dotenv": "^6.0.0",
     "email-templates": "^5.0.0",

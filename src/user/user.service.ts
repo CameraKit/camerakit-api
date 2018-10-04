@@ -2,7 +2,7 @@ import { Injectable, Inject } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Users } from './user.entity';
-import * as bcrypt from 'bcrypt';
+import * as bcrypt from 'bcrypt-nodejs';
 import * as Stripe from 'stripe';
 import { ConfigService } from '../config/config.service';
 
