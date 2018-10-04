@@ -1,4 +1,4 @@
-import { Controller, UseGuards, Post, HttpStatus, HttpCode, Get, Param, Res, Body, Req } from '@nestjs/common';
+import { Controller, UseGuards, Post, HttpStatus, HttpCode, Get, Param, Res, Body, Req, Logger } from '@nestjs/common';
 import { UserService } from './user.service';
 import { AuthGuard } from '@nestjs/passport';
 
@@ -19,6 +19,7 @@ export class UserController {
       const status = this.userService.addSponsorship(body.amount, 'usd', 'An example charge', body.token);
       return res.status(HttpStatus.OK).send(JSON.stringify({ ok: true, status }));
     }
+    Logger.error(`Error adding sponsorship.`, undefined, UserController.name);
     return res.status(HttpStatus.OK).send(JSON.stringify({ error: 'no amount specified'}));
   }
 }

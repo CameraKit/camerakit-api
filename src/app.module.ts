@@ -9,6 +9,7 @@ import { ApolloServer } from 'apollo-server-express';
 import { GraphQLModule, GraphQLFactory } from '@nestjs/graphql';
 import { ConfigService } from './config/config.service';
 
+// the config service cannot be passed through on first initialization since it is an import
 const configService = new ConfigService('.env');
 
 @Module({

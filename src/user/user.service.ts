@@ -1,4 +1,4 @@
-import { Injectable, Inject } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Users } from './user.entity';
@@ -24,10 +24,12 @@ export class UserService {
   }
 
   async getUserByEmail(email: string): Promise<Users> {
+    Logger.log(`Look up user ${email}.`, UserService.name);
     return (await this.userRepository.find({ email }))[0];
   }
 
   async createUser(user: Users): Promise<Users> {
+    Logger.log(`Create user ${user.email}.`, UserService.name);
     user.passwordHash = await this.getHash(user.password);
 
     // clear password as we don't persist passwords
@@ -44,6 +46,7 @@ export class UserService {
   }
 
   async addSponsorship(amount: number, currency: string, description: string, source: any){
+    Logger.log(`Add sponsorship for ${amount}.`, UserService.name);
     const { status } = await this.stripe.charges.create({
       amount,
       currency,

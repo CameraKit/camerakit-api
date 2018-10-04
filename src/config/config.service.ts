@@ -38,6 +38,9 @@ export class ConfigService {
     this.envConfig = this.validateInput(config);
   }
 
+  // Check if the incoming object conforms to rules. Omission of 
+  // required() variables will not let the app function correctly
+  // and will throw an error
   private validateInput(envConfig: EnvConfig): EnvConfig {
     const envVarsSchema: Joi.ObjectSchema = Joi.object({
       TYPEORM_CONNECTION: Joi.string().default('postgres'),

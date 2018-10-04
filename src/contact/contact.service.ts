@@ -1,4 +1,4 @@
-import { Injectable, Inject } from '@nestjs/common';
+import { Injectable, Inject, Logger } from '@nestjs/common';
 import { Contact } from './contact.entity';
 import { ConfigService } from '../config/config.service';
 
@@ -41,17 +41,17 @@ export class ContactService {
       }
     });
 
-    console.log(process.env.NODE_ENV);
+    Logger.log(process.env.NODE_ENV);
     if (process.env.NODE_ENV === 'development') {
-      console.log("EMAIL-LOG confirmation:");
+      Logger.log("EMAIL-LOG confirmation:");
       confirmationEmail.render('../../static/emails/ck-contact-confirmation/text', {
         name: contact.name,
         email: contact.email,
         company: contact.company,
         message: contact.message,
       })
-      .then(console.log)
-      .catch(console.error);
+      .then(Logger.log)
+      .catch(Logger.error);
     }
 
     var response;
@@ -63,7 +63,7 @@ export class ContactService {
         }
       });
     } catch (error) {
-      console.error(error);
+      Logger.error(error);
     }
     return response;
   }
@@ -91,15 +91,15 @@ export class ContactService {
 
 
     if (process.env.NODE_ENV === 'development') {
-      console.log("EMAIL-LOG internal:")
+      Logger.log("EMAIL-LOG internal:")
       internalEmail.render('../../static/emails/ck-contact-internal/text', {
         name: contact.name,
         email: contact.email,
         company: contact.company,
         message: contact.message,
       })
-      .then(console.log)
-      .catch(console.error);
+      .then(Logger.log)
+      .catch(Logger.error);
     }
 
     var response;
@@ -114,7 +114,7 @@ export class ContactService {
         }
       });
     } catch (error) {
-      console.error(error);
+      Logger.error(error);
     }
     return response;
   }
