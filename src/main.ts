@@ -24,7 +24,7 @@ async function bootstrap() {
   const appModule = app.get(AppModule);
   const apiPath = '/api/graphql';
   appModule.configureGraphQl(app, apiPath);      
- 
-  await app.listen(process.env.PORT || config.serverPort);
+
+  await app.listen(parseInt(process.env.PORT) || config.serverPort);
 }
 bootstrap();
