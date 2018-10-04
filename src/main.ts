@@ -25,6 +25,6 @@ async function bootstrap() {
   const apiPath = '/api/graphql';
   appModule.configureGraphQl(app, apiPath);      
  
-  await app.listen(config.serverPort);
+  await app.listen(process.env.PORT || config.serverPort);
 }
 bootstrap();

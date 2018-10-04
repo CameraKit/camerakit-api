@@ -35,7 +35,6 @@ export class ConfigService {
         'AWS_SES_REGION'
       ].reduce((acc, val) => (acc[val] = process.env[val], acc), {});
     }
-    console.log(config);
     this.envConfig = this.validateInput(config);
   }
 
@@ -65,7 +64,6 @@ export class ConfigService {
       envConfig,
       envVarsSchema,
     );
-    console.log(validatedEnvConfig);
     if (error) {
       throw new Error(`Config validation error: ${error.message}`);
     }
