@@ -1,27 +1,33 @@
 import { Injectable, Inject } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { User } from './user.entity';
+import { Users } from './user.entity';
 import * as bcrypt from 'bcrypt';
+import * as Stripe from 'stripe';
+import { ConfigService } from '../config/config.service';
 
 @Injectable()
 export class UserService {
   private saltRounds = 10;
+  private stripe;
 
   constructor(
-    @InjectRepository(User)
-    private readonly userRepository: Repository<User>,
-  ) {}
+    @InjectRepository(Users)
+    private readonly userRepository: Repository<Users>,
+    config: ConfigService,
+  ) {
+    this.stripe = Stripe(config.stripeSecretApiKey);
+  }
 
-  async getUsers(): Promise<User[]> {
+  async getUsers(): Promise<Users[]> {
     return await this.userRepository.find();
   }
 
-  async getUserByUsername(email: string): Promise<User> {
+  async getUserByEmail(email: string): Promise<Users> {
     return (await this.userRepository.find({ email }))[0];
   }
 
-  async createUser(user: User): Promise<User> {
+  async createUser(user: Users): Promise<Users> {
     user.passwordHash = await this.getHash(user.password);
 
     // clear password as we don't persist passwords
@@ -35,5 +41,16 @@ export class UserService {
 
   async compareHash(password: string|undefined, hash: string|undefined): Promise<boolean> {
     return bcrypt.compare(password, hash);
+  }
+
+  async addSponsorship(amount: number, currency: string, description: string, source: any){
+    const { status } = await this.stripe.charges.create({
+      amount,
+      currency,
+      description,
+      source,
+    });
+
+    return status;
   }
 }

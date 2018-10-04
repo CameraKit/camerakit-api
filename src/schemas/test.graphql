@@ -1,4 +1,4 @@
-type User {
+type Users {
     id: ID!
     email: String
     email_confirmed: Boolean
@@ -9,5 +9,5 @@ type User {
 }
 
 type Query {
-    User(id: ID!): User
+    Users(id: ID!): Users
 }
