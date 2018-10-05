@@ -7,9 +7,9 @@
   "scripts": {
     "format": "prettier --write \"**/*.ts\"",
     "start": "ts-node -r tsconfig-paths/register src/main.ts",
-    "migrations:generate": "node_modules/ts-node/dist/bin.js node_modules/.bin/typeorm migrations:generate",
-    "migrations:run": "node_modules/ts-node/dist/bin.js node_modules/.bin/typeorm migrations:run",
-    "migrations:revert": "node_modules/ts-node/dist/bin.js node_modules/.bin/typeorm migrations:revert",
+    "migrations:generate": "node_modules/ts-node/dist/bin.js node_modules/.bin/typeorm migration:generate",
+    "migrations:run": "node_modules/ts-node/dist/bin.js node_modules/.bin/typeorm migration:run",
+    "migrations:revert": "node_modules/ts-node/dist/bin.js node_modules/.bin/typeorm migration:revert",
     "start:dev": "nodemon",
     "prestart:prod": "tsc",
     "start:prod": "node dist/main.js",
