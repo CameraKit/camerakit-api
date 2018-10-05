@@ -25,6 +25,7 @@ export class ConfigService {
         'TYPEORM_LOGGING',
         'TYPEORM_ENTITIES',
         'SERVER_PORT',
+        'SERVER_HOSTNAME',
         'ALLOWED_ORIGINS',
         'ALLOWED_METHODS',
         'PASSPORT_AUTH_SECRET',
@@ -49,6 +50,7 @@ export class ConfigService {
       TYPEORM_PASSWORD: Joi.string().required(),
       TYPEORM_DATABASE: Joi.string().default('postgres'),
       TYPEORM_PORT: Joi.number().default(5432),
+      SERVER_HOSTNAME: Joi.string().default('0.0.0.0'),
       TYPEORM_SYNCHRONIZE: Joi.boolean().default(true),
       TYPEORM_LOGGING: Joi.boolean().default(true),
       TYPEORM_ENTITIES: Joi.string().default('src/**/*.entity.ts'),
@@ -118,6 +120,9 @@ export class ConfigService {
   }
   get serverPort(): number {
     return Number(this.envConfig.SERVER_PORT);
+  }
+  get serverHost(): string {
+    return String(this.envConfig.SERVER_HOSTNAME);
   }
   get allowedOrigins(): Array<string> {
     return this.envConfig.ALLOWED_ORIGINS.split(',').map(_=>_.trim());

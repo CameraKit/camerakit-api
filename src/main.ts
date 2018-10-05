@@ -30,7 +30,8 @@ async function bootstrap() {
 
   // Port for deployment will be set as an env variable
   const port = parseInt(process.env.PORT) || config.serverPort;
-  await app.listen(port);
-  Logger.log(`Started listening on port ${port}`);
+  const host = config.serverHost;
+  await app.listen(port, host);
+  Logger.log(`Started listening on ${host} through port ${port}`);
 }
 bootstrap();
