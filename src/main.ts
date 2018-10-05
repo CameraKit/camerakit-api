@@ -30,6 +30,7 @@ async function bootstrap() {
 
   // Port for deployment will be set as an env variable
   const port = parseInt(process.env.PORT) || config.serverPort;
+  // Heroku deployment requires '0.0.0.0' as host to be specified
   const host = config.serverHost;
   await app.listen(port, host);
   Logger.log(`Started listening on ${host} through port ${port}`);

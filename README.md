@@ -46,7 +46,7 @@ TYPEORM_SYNCHRONIZE        boolean true
 TYPEORM_LOGGING            boolean true
 TYPEORM_ENTITIES           string  src/**/*.entity.ts
 SERVER_PORT                number  3001
-SERVER_PORT                string  localhost
+SERVER_HOST                string  localhost
 PASSPORT_AUTH_SECRET       string  vc@oix3p32@ios4#fds$32pa
 STRIPE_PUBLISHABLE_API_KEY string  pk_test_oeKdoJLApxYsyAum
 STRIPE_SECRET_API_KEY      string  sk_test_KJ38a03KaduQw2
