@@ -10,30 +10,59 @@ export class ConfigService {
   private readonly envConfig: EnvConfig;
 
   constructor(filePath: string) {
-    const config = dotenv.parse(fs.readFileSync(filePath));
+    let config;
+    if(fs.existsSync(filePath)) { // Look for the specified file first
+      config = dotenv.parse(fs.readFileSync(filePath));
+    } else { // Fallback to checking if they are defined in the process.env already
+      config = [
+        'TYPEORM_CONNECTION',
+        'TYPEORM_HOST',
+        'TYPEORM_USERNAME',
+        'TYPEORM_PASSWORD',
+        'TYPEORM_DATABASE',
+        'TYPEORM_PORT',
+        'TYPEORM_SYNCHRONIZE',
+        'TYPEORM_LOGGING',
+        'TYPEORM_ENTITIES',
+        'SERVER_PORT',
+        'SERVER_HOSTNAME',
+        'ALLOWED_ORIGINS',
+        'ALLOWED_METHODS',
+        'PASSPORT_AUTH_SECRET',
+        'STRIPE_PUBLISHABLE_API_KEY',
+        'STRIPE_SECRET_API_KEY',
+        'AWS_SES_ACCESS_KEY_ID',
+        'AWS_SES_SECRET_ACCESS_KEY',
+        'AWS_SES_REGION'
+      ].reduce((acc, val) => (acc[val] = process.env[val], acc), {});
+    }
     this.envConfig = this.validateInput(config);
   }
 
+  // Check if the incoming object conforms to rules. Omission of 
+  // required() variables will not let the app function correctly
+  // and will throw an error
   private validateInput(envConfig: EnvConfig): EnvConfig {
     const envVarsSchema: Joi.ObjectSchema = Joi.object({
       TYPEORM_CONNECTION: Joi.string().default('postgres'),
-      TYPEORM_HOST: Joi.string(),
-      TYPEORM_USERNAME: Joi.string(),
-      TYPEORM_PASSWORD: Joi.string(),
+      TYPEORM_HOST: Joi.string().required(),
+      TYPEORM_USERNAME: Joi.string().required(),
+      TYPEORM_PASSWORD: Joi.string().required(),
       TYPEORM_DATABASE: Joi.string().default('postgres'),
       TYPEORM_PORT: Joi.number().default(5432),
+      SERVER_HOSTNAME: Joi.string().default('0.0.0.0'),
       TYPEORM_SYNCHRONIZE: Joi.boolean().default(true),
       TYPEORM_LOGGING: Joi.boolean().default(true),
       TYPEORM_ENTITIES: Joi.string().default('src/**/*.entity.ts'),
       SERVER_PORT: Joi.number().default(3001),
-      ALLOWED_ORIGINS: Joi.string(),
-      ALLOWED_METHODS: Joi.string(),
-      PASSPORT_AUTH_SECRET: Joi.string(),
-      STRIPE_PUBLISHABLE_API_KEY: Joi.string(),
-      STRIPE_SECRET_API_KEY: Joi.string(),
-      AWS_SES_ACCESS_KEY_ID: Joi.string(),
-      AWS_SES_SECRET_ACCESS_KEY: Joi.string(),
-      AWS_SES_REGION: Joi.string()
+      ALLOWED_ORIGINS: Joi.string().required(),
+      ALLOWED_METHODS: Joi.string().required(),
+      PASSPORT_AUTH_SECRET: Joi.string().required(),
+      STRIPE_PUBLISHABLE_API_KEY: Joi.string().required(),
+      STRIPE_SECRET_API_KEY: Joi.string().required(),
+      AWS_SES_ACCESS_KEY_ID: Joi.string().required(),
+      AWS_SES_SECRET_ACCESS_KEY: Joi.string().required(),
+      AWS_SES_REGION: Joi.string().required()
     });
 
     const { error, value: validatedEnvConfig } = Joi.validate(
@@ -91,6 +120,9 @@ export class ConfigService {
   }
   get serverPort(): number {
     return Number(this.envConfig.SERVER_PORT);
+  }
+  get serverHost(): string {
+    return String(this.envConfig.SERVER_HOSTNAME);
   }
   get allowedOrigins(): Array<string> {
     return this.envConfig.ALLOWED_ORIGINS.split(',').map(_=>_.trim());

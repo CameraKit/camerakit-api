@@ -5,6 +5,11 @@
     "noImplicitAny": false,
     "removeComments": true,
     "noLib": false,
+    "lib": [
+      "dom",
+      "es2015",
+       "esnext.asynciterable"
+     ],
     "allowSyntheticDefaultImports": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,

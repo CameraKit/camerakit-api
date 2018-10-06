@@ -1,3 +1,4 @@
+import { Logger } from '@nestjs/common';
 import { NestFactory, FastifyAdapter } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { ConfigService } from './config/config.service';
@@ -6,6 +7,7 @@ import * as path from 'path';
 import * as cors from 'cors';
 
 async function bootstrap() {
+  // Create the main app from the base AppModule and use fastify for static assets
   const app = await NestFactory.create(AppModule, new FastifyAdapter());
   const config: ConfigService = app.get(ConfigService);
 
@@ -14,6 +16,7 @@ async function bootstrap() {
     root: path.join(__dirname + '/../dist/public'),
   });
   
+  // Only allow pre-defined origins
   app.use(cors({
     'origin': config.allowedOrigins,
     'methods': config.allowedMethods,
@@ -23,8 +26,13 @@ async function bootstrap() {
 
   const appModule = app.get(AppModule);
   const apiPath = '/api/graphql';
-  appModule.configureGraphQl(app, apiPath);      
- 
-  await app.listen(config.serverPort);
+  appModule.configureGraphQl(app, apiPath);
+
+  // Port for deployment will be set as an env variable
+  const port = parseInt(process.env.PORT) || config.serverPort;
+  // Heroku deployment requires '0.0.0.0' as host to be specified
+  const host = config.serverHost;
+  await app.listen(port, host);
+  Logger.log(`Started listening on ${host} through port ${port}`);
 }
 bootstrap();
