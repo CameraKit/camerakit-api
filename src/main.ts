@@ -1,42 +1,51 @@
 import { Logger } from '@nestjs/common';
-import { NestFactory, FastifyAdapter } from '@nestjs/core';
+import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { ConfigService } from './config/config.service';
 
 import * as path from 'path';
 import * as cors from 'cors';
 import * as helmet from 'helmet';
+import * as express from 'express';
+import * as enforce from 'express-sslify';
 
 async function bootstrap() {
-  // Create the main app from the base AppModule and use fastify for static assets
-  const app = await NestFactory.create(AppModule, new FastifyAdapter());
-  const config: ConfigService = app.get(ConfigService);
+  const env = process.env.NODE_ENV || 'development';
+  const expressApp = express();
 
-  app.useStaticAssets({
-    prefix: '/',
-    root: path.join(__dirname + '/../dist/public'),
-  });
+  const nestApp = await NestFactory.create(AppModule, expressApp);
+  const config: ConfigService = nestApp.get(ConfigService);
+
+  // Ensure all requests are https
+  if (env === 'production') {
+    // DO NOTE the trustProtoHeader should only be true for Heroku deployments
+    expressApp.use(enforce.HTTPS({ trustProtoHeader: config.reverseProxy }));
+  }
+  expressApp.use(express.static(path.join(__dirname + '/../dist/public')));
 
   // Use Helmet
-  app.use(helmet());
+  nestApp.use(helmet());
 
   // Only allow pre-defined origins
-  app.use(cors({
+  const corsOptions : cors.CorsOptions = {
     origin: config.allowedOrigins,
     methods: config.allowedMethods,
-    preflightContinue: false,
+    preflightContinue: Boolean(false),
     optionsSuccessStatus: 204,
-  }));
+  };
+  nestApp.use(cors(corsOptions));
 
-  const appModule = app.get(AppModule);
+  const appModule = nestApp.get(AppModule);
   const apiPath = '/api/graphql';
-  appModule.configureGraphQl(app, apiPath);
+  appModule.configureGraphQl(nestApp, apiPath);
 
   // Port for deployment will be set as an env variable
   const port = parseInt(process.env.PORT, 10) || config.serverPort;
   // Heroku deployment requires '0.0.0.0' as host to be specified
   const host = config.serverHost;
-  await app.listen(port, host);
+
+  await nestApp.init();
+  expressApp.listen(port, host);
   Logger.log(`Started listening on ${host} through port ${port}`);
 }
 bootstrap();
