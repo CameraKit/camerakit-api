@@ -45,6 +45,8 @@ TYPEORM_PORT               number  5432
 TYPEORM_SYNCHRONIZE        boolean true
 TYPEORM_LOGGING            boolean true
 TYPEORM_ENTITIES           string  src/**/*.entity.ts
+TYPEORM_SSL                boolean true
+REVERSE_PROXY              boolean false
 SERVER_PORT                number  3001
 SERVER_HOST                string  localhost
 PASSPORT_AUTH_SECRET       string  vc@oix3p32@ios4#fds$32pa
