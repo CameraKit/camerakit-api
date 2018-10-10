@@ -13,16 +13,15 @@ export class ContactController {
       return res.status(HttpStatus.FORBIDDEN).send(JSON.stringify({ message: 'Name, Email, Company and Message are required!' }));
     }
 
-    var confirmationResponse = await this.contactService.sendConfirmationEmail(body);
-    var internalResponse = await this.contactService.sendInternalEmail(body);
+    const confirmationResponse = await this.contactService.sendConfirmationEmail(body);
+    const internalResponse = await this.contactService.sendInternalEmail(body);
 
     if (typeof confirmationResponse === 'undefined' || typeof internalResponse === 'undefined') {
       Logger.error('POST sendEmail: Email send error.', undefined, ContactController.name);
       return res.status(HttpStatus.INTERNAL_SERVER_ERROR).send(JSON.stringify({ message: 'Error sending the email' }));
     }
-    else {
-      Logger.log(`Sent email for ${body.email}.`, ContactController.name);
-      res.status(HttpStatus.OK).send(JSON.stringify({ message: 'Success' }));
-    }
+
+    Logger.log(`Sent email for ${body.name} (${body.email}) from ${body.company}\n${body.message}.`, ContactController.name);
+    res.status(HttpStatus.OK).send(JSON.stringify({ message: 'Success' }));
   }
 }
