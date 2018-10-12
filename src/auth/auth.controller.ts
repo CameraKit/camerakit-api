@@ -16,7 +16,8 @@ export class AuthController {
       return res.status(HttpStatus.FORBIDDEN).send(JSON.stringify({ message: 'Email and password are required!' }));
     }
 
-    const user = await this.userService.getUserByEmail(body.email);
+    const result = await this.userService.getUserByEmail(body.email);
+    const user = result.out;
 
     if (user) {
       if (await this.userService.compareHash(body.password, user.passwordHash)) {
@@ -27,26 +28,5 @@ export class AuthController {
 
     Logger.error(`Wrong password from ${body.email}.`, undefined, AuthController.name);
     return res.status(HttpStatus.FORBIDDEN).send(JSON.stringify({ message: 'Email or password wrong!' }));
-  }
-
-  @Post('register')
-  async registerUser(@Res() res: any, @Body() body: Users) {
-    if (!(body && body.email && body.password)) {
-      Logger.error(`Incomplete registration request.`, undefined, AuthController.name);
-      return res.status(HttpStatus.FORBIDDEN).send(JSON.stringify({ message: 'Email and password are required!' }));
-    }
-
-    let user = await this.userService.getUserByEmail(body.email);
-
-    if (user) {
-      Logger.error(`User tried to register with duplicate email ${body.email}.`, undefined, AuthController.name);
-      return res.status(HttpStatus.FORBIDDEN).send(JSON.stringify({ message: 'Email exists' }));
-    }
-    user = await this.userService.createUser(body);
-    if (user) {
-      user.passwordHash = undefined;
-    }
-    Logger.log(`New user registered as ${body.email}.`, AuthController.name);
-    return res.status(HttpStatus.OK).send(JSON.stringify(user));
   }
 }
