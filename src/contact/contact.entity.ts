@@ -14,6 +14,6 @@ export class Contact {
   @Column({ length:100, nullable: true })
   company: string;
 
-  @Column({ length:500, nullable: true })
+  @Column({ length:10000, nullable: true })
   message: string;
 }
