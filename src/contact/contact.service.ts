@@ -9,17 +9,19 @@ import * as path from 'path';
 
 @Injectable()
 export class ContactService {
+  private transporter = null;
+
   constructor(config: ConfigService) {
     aws.config.accessKeyId = config.awsSesAccessKey;
     aws.config.secretAccessKey = config.awsSesSecretAccessKey;
     aws.config.region = config.awsSesRegion;
-  }
 
-  private transporter = nodemailer.createTransport({
-    SES: new aws.SES({
-      apiVersion: '2010-12-01'
-    })
-  });
+    this.transporter = nodemailer.createTransport({
+      SES: new aws.SES({
+        apiVersion: '2010-12-01'
+      })
+    });
+  }
 
   async sendConfirmationEmail(contact: Contact): Promise<string> {  
     var confirmationEmail = new Email({
