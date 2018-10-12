@@ -57,7 +57,7 @@ export class UserController {
   }
 
   @Post('sponsor')
-  @UseGuards(AuthGuard('jwt', { session: false }))
+  @UseGuards(AuthGuard('jwt'))
   addSponsorship(@Body() body: any, @Res() res: any) {
     if (body.amount != null) {
       const status = this.userService.addSponsorship(body.amount, 'usd', 'An example charge', body.token);

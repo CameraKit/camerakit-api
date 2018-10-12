@@ -35,10 +35,6 @@ async function bootstrap() {
   };
   nestApp.use(cors(corsOptions));
 
-  const appModule = nestApp.get(AppModule);
-  const apiPath = '/api/graphql';
-  appModule.configureGraphQl(nestApp, apiPath);
-
   // Port for deployment will be set as an env variable
   const port = parseInt(process.env.PORT, 10) || config.serverPort;
   // Heroku deployment requires '0.0.0.0' as host to be specified

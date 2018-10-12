@@ -6,24 +6,22 @@ import { UserModule } from './user/user.module';
 import { AuthModule } from './auth/auth.module';
 import { ContactModule } from './contact/contact.module';
 import { ApolloServer } from 'apollo-server-express';
-import { GraphQLModule, GraphQLFactory } from '@nestjs/graphql';
+import { GraphQLModule } from '@nestjs/graphql';
 import { ConfigService } from './config/config.service';
 
 // the config service cannot be passed through on first initialization since it is an import
 const configService = new ConfigService('.env');
 
 @Module({
-  imports: [TypeOrmModule.forRoot(configService.databaseConfig), GraphQLModule, UserModule, AuthModule, ConfigModule, ContactModule], // get config from ormconfig.json,
+  imports: [TypeOrmModule.forRoot(configService.databaseConfig),
+    GraphQLModule.forRoot({
+      typePaths: ['./**/*.graphql'],
+      installSubscriptionHandlers: true,
+    }),
+    UserModule,
+    AuthModule,
+    ConfigModule,
+    ContactModule],
 })
 
-export class AppModule {
-  constructor(private readonly connection: Connection, private readonly graphQLFactory: GraphQLFactory) { }
-
-  configureGraphQl(app: any, path: string) {
-    const typeDefs = this.graphQLFactory.mergeTypesByPaths('./**/*.graphql');
-    const schema = this.graphQLFactory.createSchema({ typeDefs });
-
-    const server = new ApolloServer({ schema });
-    server.applyMiddleware({ app, path });
-  }
-}
+export class AppModule {}
