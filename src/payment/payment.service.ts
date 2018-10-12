@@ -1,39 +1,46 @@
-import { Injectable, Inject } from '@nestjs/common';
+import { Injectable, Inject, Logger } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Payment } from './payment.entity';
-import * as bcrypt from 'bcrypt-nodejs';
+import { ConfigService } from '../config/config.service';
+import * as Stripe from 'stripe';
 
 @Injectable()
 export class PaymentService {
-  private saltRounds = 10;
+  private stripe;
 
   constructor(
     @InjectRepository(Payment)
     private readonly paymentRepository: Repository<Payment>,
-  ) {}
+    config: ConfigService,
+  ) {
+    this.stripe = new Stripe(config.stripeSecretApiKey);
+  }
 
   async getPayments(): Promise<Payment[]> {
     return await this.paymentRepository.find();
   }
 
-  async getPaymentByEmail(email: string): Promise<Payment> {
-    return (await this.paymentRepository.find({ email }))[0];
+  async addSponsorship(amount: number, currency: string, description: string, source: any) {
+    Logger.log(`Add sponsorship for ${amount}.`, PaymentService.name);
+    const { status } = await this.stripe.charges.create({
+      amount,
+      currency,
+      description,
+      source,
+    });
+
+    return status;
   }
+  async addSupporter(amount: number, currency: string, description: string, source: any) {
+    Logger.log(`Add supporter for ${amount}.`, PaymentService.name);
+    const { status } = await this.stripe.charges.create({
+      amount,
+      currency,
+      description,
+      source,
+    });
 
-  async createPayment(payment: Payment): Promise<Payment> {
-    payment.passwordHash = await this.getHash(payment.password);
-
-    // clear password as we don't persist passwords
-    payment.password = undefined;
-    return this.paymentRepository.save(payment);
-  }
-
-  async getHash(password: string|undefined): Promise<string> {
-    return bcrypt.hash(password, this.saltRounds);
-  }
-
-  async compareHash(password: string|undefined, hash: string|undefined): Promise<boolean> {
-    return bcrypt.compare(password, hash);
+    return status;
   }
 }

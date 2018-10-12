@@ -37,6 +37,9 @@
     "STRIPE_SECRET_API_KEY": {
       "required": true
     },
+    "STRIPE_WEBHOOK_SECRET": {
+      "required": true
+    },
     "TYPEORM_CONNECTION": {
       "required": true
     },

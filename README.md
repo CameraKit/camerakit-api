@@ -52,6 +52,7 @@ SERVER_HOST                string  localhost
 PASSPORT_AUTH_SECRET       string  vc@oix3p32@ios4#fds$32pa
 STRIPE_PUBLISHABLE_API_KEY string  pk_test_oeKdoJLApxYsyAum
 STRIPE_SECRET_API_KEY      string  sk_test_KJ38a03KaduQw2
+STRIPE_WEBHOOK_SECRET      string  whsec_i4A39Ndu3JA3u1
 ALLOWED_ORIGINS            string  https://yourdomain.tld,https://otherdomain.tld
 ALLOWED_METHODS            string  'GET,HEAD,PUT,PATCH,POST,DELETE'
 AWS_SES_ACCESS_KEY_ID      string  dCEa39ymXcgM9XF3HT8g

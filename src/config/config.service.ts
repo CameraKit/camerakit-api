@@ -33,6 +33,7 @@ export class ConfigService {
         'PASSPORT_AUTH_SECRET',
         'STRIPE_PUBLISHABLE_API_KEY',
         'STRIPE_SECRET_API_KEY',
+        'STRIPE_WEBHOOK_SECRET',
         'AWS_SES_ACCESS_KEY_ID',
         'AWS_SES_SECRET_ACCESS_KEY',
         'AWS_SES_REGION',
@@ -41,7 +42,7 @@ export class ConfigService {
     this.envConfig = this.validateInput(config);
   }
 
-  // Check if the incoming object conforms to rules. Omission of 
+  // Check if the incoming object conforms to rules. Omission of
   // required() variables will not let the app function correctly
   // and will throw an error
   private validateInput(envConfig: EnvConfig): EnvConfig {
@@ -64,6 +65,7 @@ export class ConfigService {
       PASSPORT_AUTH_SECRET: Joi.string().required(),
       STRIPE_PUBLISHABLE_API_KEY: Joi.string().required(),
       STRIPE_SECRET_API_KEY: Joi.string().required(),
+      STRIPE_WEBHOOK_SECRET: Joi.string().required(),
       AWS_SES_ACCESS_KEY_ID: Joi.string().required(),
       AWS_SES_SECRET_ACCESS_KEY: Joi.string().required(),
       AWS_SES_REGION: Joi.string().required(),
@@ -148,6 +150,9 @@ export class ConfigService {
   }
   get stripeSecretApiKey(): string {
     return String(this.envConfig.STRIPE_SECRET_API_KEY);
+  }
+  get stripeWebhookSecret(): string {
+    return String(this.envConfig.STRIPE_WEBHOOK_SECRET);
   }
   get awsSesAccessKey(): string {
     return String(this.envConfig.AWS_SES_ACCESS_KEY_ID);

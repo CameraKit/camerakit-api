@@ -21,7 +21,7 @@ async function bootstrap() {
     // DO NOTE the trustProtoHeader should only be true for Heroku deployments
     expressApp.use(enforce.HTTPS({ trustProtoHeader: config.reverseProxy }));
   }
-  expressApp.use(express.static(path.join(__dirname + '/../dist/public')));
+  expressApp.use(express.static(path.join(`${__dirname}/../dist/public`)));
 
   // Use Helmet
   nestApp.use(helmet());

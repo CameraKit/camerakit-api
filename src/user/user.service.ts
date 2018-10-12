@@ -3,22 +3,16 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Users } from './user.entity';
 import * as bcrypt from 'bcrypt-nodejs';
-import * as Stripe from 'stripe';
-import { ConfigService } from '../config/config.service';
 import dto from '../interfaces/dto';
 
 @Injectable()
 export class UserService {
   private saltRounds = 10;
-  private stripe;
 
   constructor(
     @InjectRepository(Users)
     private readonly userRepository: Repository<Users>,
-    config: ConfigService,
-  ) {
-    this.stripe = Stripe(config.stripeSecretApiKey);
-  }
+  ) {}
 
   async getUsers(): Promise<Users[]> {
     return await this.userRepository.find();
@@ -104,17 +98,5 @@ export class UserService {
 
   async compareHash(password: string|undefined, hash: string|undefined): Promise<boolean> {
     return bcrypt.compare(password, hash);
-  }
-
-  async addSponsorship(amount: number, currency: string, description: string, source: any){
-    Logger.log(`Add sponsorship for ${amount}.`, UserService.name);
-    const { status } = await this.stripe.charges.create({
-      amount,
-      currency,
-      description,
-      source,
-    });
-
-    return status;
   }
 }

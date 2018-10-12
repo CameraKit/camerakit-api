@@ -18,8 +18,8 @@ export class ContactService {
 
     this.transporter = nodemailer.createTransport({
       SES: new aws.SES({
-        apiVersion: '2010-12-01'
-      })
+        apiVersion: '2010-12-01',
+      }),
     });
   }
 
@@ -59,6 +59,7 @@ export class ContactService {
     try {
       response = await confirmationEmail.send({
         template: 'ck-contact-confirmation',
+        message: contact.message,
         locals: {
           message: contact.message,
         },
@@ -77,7 +78,6 @@ export class ContactService {
       },
       preview: false,
       transport: this.transporter,
-      template: 'ck-contact-internal',
       views: {
         root: './static/emails/',
       },
@@ -106,6 +106,7 @@ export class ContactService {
     try {
       response = await internalEmail.send({
         template: 'ck-contact-internal',
+        message: contact.message,
         locals: {
           name: contact.name,
           email: contact.email,

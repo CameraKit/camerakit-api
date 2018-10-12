@@ -229,6 +229,10 @@
   dependencies:
     "@types/express" "*"
 
+"@types/email-templates@^3.5.0":
+  version "3.5.0"
+  resolved "http://registry.npmjs.org/@types/email-templates/-/email-templates-3.5.0.tgz#065278d22cacab7324d4c90d0ee4377786e3b488"
+
 "@types/events@*":
   version "1.2.0"
   resolved "http://registry.npmjs.org/@types/events/-/events-1.2.0.tgz#81a6731ce4df43619e5c8c945383b3e62a89ea86"
@@ -290,6 +294,12 @@
   dependencies:
     "@types/express-serve-static-core" "*"
     "@types/mime" "*"
+
+"@types/stripe@^6.0.1":
+  version "6.0.1"
+  resolved "https://registry.yarnpkg.com/@types/stripe/-/stripe-6.0.1.tgz#e23d10d7a2c36a56828eff0c2523effcc7bd8dd8"
+  dependencies:
+    "@types/node" "*"
 
 "@types/superagent@*":
   version "3.8.4"

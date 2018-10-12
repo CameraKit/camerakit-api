@@ -55,15 +55,4 @@ export class UserController {
     Logger.log(result.message, UserController.name);
     res.status(HttpStatus.OK).send(JSON.stringify({ success: true }));
   }
-
-  @Post('sponsor')
-  @UseGuards(AuthGuard('jwt'))
-  addSponsorship(@Body() body: any, @Res() res: any) {
-    if (body.amount != null) {
-      const status = this.userService.addSponsorship(body.amount, 'usd', 'An example charge', body.token);
-      return res.status(HttpStatus.OK).send(JSON.stringify({ status, ok: true }));
-    }
-    Logger.error(`Error adding sponsorship.`, undefined, UserController.name);
-    return res.status(HttpStatus.OK).send(JSON.stringify({ error: 'no amount specified'}));
-  }
 }
