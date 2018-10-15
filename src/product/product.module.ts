@@ -9,4 +9,4 @@ import { Product } from './product.entity';
   exports: [ProductService],
 })
 
-export class PaymentModule {}
+export class ProductModule {}

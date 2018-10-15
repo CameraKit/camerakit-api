@@ -6,6 +6,9 @@ export class Product {
   id: number;
 
   @Column()
+  planId: string;
+
+  @Column()
   description: string;
 
   @Column()

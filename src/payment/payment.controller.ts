@@ -4,35 +4,33 @@ import { AuthGuard } from '@nestjs/passport';
 import { Payment } from './payment.entity';
 
 @Controller('payment')
-export class UserController {
+export class PaymentController {
   constructor(private readonly paymentService: PaymentService) {}
 
   @Post('event')
   stripeEvent(@Body() body: any, @Req() req: any, @Res() res: any) {
     Logger.log(body);
-    Logger.log(req.headers);
+    this.paymentService.logEvent(body);
     return res.status(HttpStatus.OK).end();
   }
 
-  @Post('sponsor')
+  @Post('support')
   @UseGuards(AuthGuard('jwt'))
-  addSponsorship(@Body() body: any, @Res() res: any) {
-    if (body.amount != null) {
-      const status = this.paymentService.addSponsorship(body.amount, 'usd', 'An example charge', body.token);
+  async addSupporter(@Body() body: any, @Res() res: any) {
+    if (body.monthly == null || body.token == null || body.email == null || body.amount == null) {
+      Logger.error(`Error adding supporter.`, undefined, PaymentController.name);
+      return res.status(HttpStatus.OK).send(JSON.stringify({ error: 'Incomplete payment information.' }));
+    }
+    let status;
+    const description = `A ${body.monthly ? 'monthly' : 'one time'} donation from ${body.email} for ${body.amount}.`;
+    if (body.monthly) {
+      status = await this.paymentService.addSponsorship(body.email, body.amount, 'usd', description, body.token);
+    } else {
+      status = await this.paymentService.addSupporter(body.email, body.amount, 'usd', description, body.token);
+    }
+    if (status === 'succeeded' || status === 'active') {
       return res.status(HttpStatus.OK).send(JSON.stringify({ status, ok: true }));
     }
-    Logger.error(`Error adding sponsorship.`, undefined, UserController.name);
-    return res.status(HttpStatus.OK).send(JSON.stringify({ error: 'no amount specified' }));
-  }
-
-  @Post('sponsor')
-  @UseGuards(AuthGuard('jwt'))
-  addSupporter(@Body() body: any, @Res() res: any) {
-    if (body.amount != null) {
-      const status = this.paymentService.addSupporter(body.amount, 'usd', 'An example charge', body.token);
-      return res.status(HttpStatus.OK).send(JSON.stringify({ status, ok: true }));
-    }
-    Logger.error(`Error adding sponsorship.`, undefined, UserController.name);
-    return res.status(HttpStatus.OK).send(JSON.stringify({ error: 'no amount specified' }));
+    return res.status(HttpStatus.INTERNAL_SERVER_ERROR).send(JSON.stringify({ status, ok: false }));
   }
 }

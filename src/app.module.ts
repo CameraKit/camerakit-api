@@ -3,6 +3,9 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule } from './config/config.module';
 import { UserModule } from './user/user.module';
 import { AuthModule } from './auth/auth.module';
+import { PaymentModule } from './payment/payment.module';
+import { ProductModule } from './product/product.module';
+import { SubscriptionModule } from './subscription/subscription.module';
 import { ContactModule } from './contact/contact.module';
 import { GraphQLModule } from '@nestjs/graphql';
 import { ConfigService } from './config/config.service';
@@ -19,7 +22,11 @@ const configService = new ConfigService('.env');
     UserModule,
     AuthModule,
     ConfigModule,
-    ContactModule],
+    ContactModule,
+    PaymentModule,
+    ProductModule,
+    SubscriptionModule,
+  ],
 })
 
 export class AppModule {}

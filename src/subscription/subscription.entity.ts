@@ -6,13 +6,13 @@ export class Subscription {
   id: number;
 
   @Column()
-  userId: number;
+  userId: string;
 
   @Column()
   price: number;
 
   @Column()
-  product: number;
+  product: string;
 
   @Column()
   source: string;

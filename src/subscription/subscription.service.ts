@@ -1,4 +1,4 @@
-import { Injectable, Inject } from '@nestjs/common';
+import { Injectable, Inject, Logger } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Subscription } from './subscription.entity';
@@ -15,6 +15,7 @@ export class SubscriptionService {
   }
 
   async createSubscription(subscription: Subscription): Promise<Subscription> {
-    return this.subscriptionRepository.save(subscription);
+    Logger.log(`Creating subscription: ${JSON.stringify(subscription)}`);
+    return await this.subscriptionRepository.save(subscription);
   }
 }
