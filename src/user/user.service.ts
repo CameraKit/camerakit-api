@@ -2,7 +2,7 @@ import { Injectable, Logger } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Users } from './user.entity';
-import * as bcrypt from 'bcrypt-nodejs';
+import * as bcrypt from 'bcrypt';
 import dto from '../interfaces/dto';
 
 @Injectable()

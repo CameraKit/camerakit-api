@@ -18,13 +18,13 @@ export class UserController {
     return res.status(HttpStatus.CREATED).send(JSON.stringify({ user: result.out }));
   }
 
-  @Get('users')
+  @Get('')
   async getUsers(@Res() res: any) {
     const users = await this.userService.getUsers();
     return res.status(HttpStatus.OK).send(JSON.stringify(users));
   }
 
-  @Get('users/:email')
+  @Get(':email')
   async getUser(@Res() res: any, @Param('email') email) {
     const result = await this.userService.getUserByEmail(email);
     if (result.error) {
@@ -34,7 +34,7 @@ export class UserController {
     return res.status(HttpStatus.OK).send(JSON.stringify(result.out));
   }
 
-  @Put('users')
+  @Put('')
   async updateUser(@Req() req, @Res() res: any, @Body() body: Users) {
     const result = await this.userService.update(body);
     if (result.error) {
@@ -45,7 +45,7 @@ export class UserController {
     res.status(HttpStatus.OK).send(JSON.stringify({ user: result.out }));
   }
 
-  @Delete('users')
+  @Delete('')
   public async removeUser(@Res() res: any, @Body() body: Users) {
     const result = await this.userService.remove(body);
     if (result.error) {
