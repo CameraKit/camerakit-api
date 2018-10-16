@@ -2,11 +2,11 @@ import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
 export class Payment {
-  @PrimaryGeneratedColumn()
-  id: number;
+  @PrimaryGeneratedColumn('uuid')
+  id: string;
 
   @Column()
-  userId: number;
+  userId: string;
 
   @Column()
   price: number;
@@ -18,7 +18,7 @@ export class Payment {
   source: string;
 
   @Column({ nullable: true })
-  subscriptionId: number;
+  subscriptionId: string;
 
   @Column({ nullable: true })
   startDate: Date;

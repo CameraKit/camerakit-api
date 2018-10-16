@@ -2,8 +2,8 @@ import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
 export class Subscription {
-  @PrimaryGeneratedColumn()
-  id: number;
+  @PrimaryGeneratedColumn('uuid')
+  id: string;
 
   @Column()
   userId: string;
@@ -18,13 +18,13 @@ export class Subscription {
   source: string;
 
   @Column({ nullable: true })
-  subscriptionId: number;
+  subscriptionId: string;
 
   @Column({ nullable: true })
-  startDate: Date;
+  startDate: number;
 
   @Column({ nullable: true })
-  endDate: Date;
+  endDate: number;
 
   @Column({ nullable: true })
   status: string;
