@@ -25,6 +25,7 @@
     "@nestjs/graphql": "^5.4.0",
     "@nestjs/passport": "^5.1.0",
     "@nestjs/typeorm": "^5.1.0",
+    "@types/bcrypt": "^3.0.0",
     "@types/bcrypt-nodejs": "^0.0.30",
     "@types/email-templates": "^3.5.0",
     "@types/graphql": "^14.0.2",

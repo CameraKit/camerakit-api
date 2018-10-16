@@ -20,12 +20,12 @@ export class UserService {
 
   async registerUser(user: Users): Promise<dto<Users>> {
     if (user.email == null || user.password == null) {
-      return { error: `Incomplete registration request.`, message: `Email and password are required!` };
+      return { error: `Email and password are required!`, message: `Incomplete registration request.` };
     }
 
-    const existingUser = await this.getUserByEmail(user.email);
-    if (existingUser) {
-      return { error: `User tried to register with duplicate email ${user.email}.`, message: `Another user is registered with that email address` };
+    const result = await this.getUserByEmail(user.email);
+    if (result.out) {
+      return { error: `Another user is registered with that email address.`, message: `User tried to register with duplicate email ${user.email}.` };
     }
 
     const newUser = await this.createUser(user);
@@ -44,11 +44,12 @@ export class UserService {
     return { out: user, message: `Found user with email ${email}.` };
   }
 
-  async getUserById(id: number): Promise<dto<Users>> {
+  async getUserById(id: string): Promise<dto<Users>> {
     const user = await this.userRepository.findOne({ id });
     if (user == null) {
       return { error: `Could not find a user with that id.`, message: `User with ${id} not found.` };
     }
+    user.passwordHash = null;
     return { out: user, message: `Found user with id ${id}.` };
   }
 
