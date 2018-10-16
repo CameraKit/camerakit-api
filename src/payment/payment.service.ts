@@ -25,63 +25,80 @@ export class PaymentService {
     return await this.paymentRepository.find();
   }
 
-  async addSponsorship(email: string, amount: number, currency: string, description: string, source: any) {
+  async addSubscription(id: string, userEmail: string, email: string, plan: string, description: string, source: any) {
     const customer = await this.stripe.customers.create({
       source,
-      description: `Customer for ${description}`,
+      description: `Customer for ${userEmail}`,
     });
-    Logger.log(`Add sponsorship for ${amount}.`, PaymentService.name);
-    const { status } = await this.stripe.subscriptions.create({
+    Logger.log(`${userEmail} added subscription for ${plan}.`, PaymentService.name);
+    const response = await this.stripe.subscriptions.create({
       customer: customer.id,
       items:[
-        { plan: 'plan_Dmuw5XdiRkUseO' },
+        { plan },
       ],
-      metadata: { email },
+      metadata: { id, email },
     }).catch(error => Logger.error(error, undefined, PaymentService.name));
-
-    Logger.log(status);
-    return status;
+    if (response.status === 'active') {
+      const subscription = response.items.data[0];
+      this.subscription.createSubscription({
+        price: subscription.plan.amount,
+        source: response.customer,
+        userId: response.metadata.id,
+        product: 'subscription',
+        subscriptionId: response.id,
+        endDate: response.current_period_end,
+        startDate: response.current_period_start,
+        status: 'active',
+      });
+    }
+    return response.status;
   }
-  async addSupporter(email: string, amount: number, currency: string, description: string, source: any) {
-    Logger.log(`Add supporter for ${amount}.`, PaymentService.name);
-    const { status } = await this.stripe.charges.create({
+  async addSupporter(id: string, userEmail: string, email: string, amount: number, currency: string, description: string, source: any) {
+    Logger.log(`${userEmail} tried to support for ${amount}.`, PaymentService.name);
+    const response = await this.stripe.charges.create({
       amount,
       currency,
       description,
       source,
-      metadata: { email },
+      metadata: { id, email },
     }).catch(error => Logger.error(error, undefined, PaymentService.name));
-    return status;
-  }
-
-  async logEvent(body: any) {
-    Logger.log(`STRIPE EVENT: ${body.id} - ${body.type}`, PaymentService.name);
-    if (body.type === 'charge.succeeded') {
-      const charge = body.data.object;
+    Logger.log(response, PaymentService.name);
+    if (response.status === 'succeeded') {
+      const { id, amount, metadata, source } = response;
+      Logger.log(`${userEmail} supported for ${amount}.`, PaymentService.name);
       this.subscription.createSubscription({
-        id: charge.id,
-        price: charge.amount,
-        source: charge.source.id,
-        userId: charge.source.name,
+        price: amount,
+        source: source.id,
+        userId: metadata.id,
         product: 'charge',
         subscriptionId: null,
         endDate: null,
         startDate: null,
         status: null,
       });
-    } else if (body.type === 'customer.subscription.created') {
-      const subscription = body.items.data[0];
-      this.subscription.createSubscription({
-        id: subscription.id,
-        price: subscription.plan.amount,
-        source: body.customer,
-        userId: body.metadata.email,
-        product: 'subscription',
-        subscriptionId: subscription.id,
-        endDate: body.ended_at,
-        startDate: body.current_period_start,
-        status: 'active',
-      });
     }
+    return response.status;
+  }
+
+  async removeSubscription(id: string, email: string) {
+    Logger.log(`Removing subscription for user ${email}.`, PaymentService.name);
+    const subscriptions = await this.subscription.getActiveSubscriptions(id);
+    if (subscriptions.length === 0) {
+      Logger.log(`No subscriptions found for user ${email}.`, PaymentService.name);
+      return false;
+    }
+    const subscriptionId = subscriptions[0].subscriptionId;
+    const response = await this.stripe.subscriptions.del(subscriptionId);
+    if (response.status === 'canceled') {
+      Logger.log(`Subscription canceled for user ${email}.`, PaymentService.name);
+      this.subscription.removeSubscription(subscriptions[0]);
+      return true;
+    }
+    Logger.error(`Unable to cancel subscription for user ${email}.`, undefined, PaymentService.name);
+    return false;
+  }
+
+  async logEvent(body: any) {
+    Logger.log(`STRIPE EVENT: ${body.id} - ${body.type}`, PaymentService.name);
   }
 }

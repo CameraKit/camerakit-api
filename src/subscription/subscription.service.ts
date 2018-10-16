@@ -10,12 +10,17 @@ export class SubscriptionService {
     private readonly subscriptionRepository: Repository<Subscription>,
   ) {}
 
-  async getSubscriptions(): Promise<Subscription[]> {
-    return await this.subscriptionRepository.find();
+  async getActiveSubscriptions(userId: string): Promise<Subscription[]> {
+    return await this.subscriptionRepository.find({ userId, status: 'active' });
   }
 
-  async createSubscription(subscription: Subscription): Promise<Subscription> {
-    Logger.log(`Creating subscription: ${JSON.stringify(subscription)}`);
+  async createSubscription(subscription: any): Promise<Subscription> {
+    Logger.log(`Creating subscription: ${JSON.stringify(subscription)}`, SubscriptionService.name);
     return await this.subscriptionRepository.save(subscription);
+  }
+
+  async removeSubscription(subscription: any): Promise<any> {
+    Logger.log(`Removing subscription ${JSON.stringify(subscription)}.`, SubscriptionService.name);
+    return await this.subscriptionRepository.save({ ...subscription, status: 'canceled' });
   }
 }

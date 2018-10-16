@@ -42,6 +42,6 @@ async function bootstrap() {
 
   await nestApp.init();
   expressApp.listen(port, host);
-  Logger.log(`Started listening on ${host} through port ${port}`);
+  Logger.log(`Started listening on ${host} through port ${port}`, 'ExpressApplication');
 }
 bootstrap();
