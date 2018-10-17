@@ -66,11 +66,17 @@ The environment variables live in the `.env` file. This file is loaded by the do
 | AWS_SES_ACCESS_KEY_ID |      string |  `dCEa39ymXcgM9XF3HT8g` |
 | AWS_SES_SECRET_ACCESS_KEY |  string |  `DoMcYU12AD3MAzD4tRlXSz5Z0XxC1MipofloVjYf` | 
 | AWS_SES_REGION |             string |  `us-east-1` |
+| CONTACT_NOREPLY_EMAIL |      string |  `noreply@camerakit.io` |
+| CONTACT_INTERNAL_EMAIL |     string |  `contact@camerakit.io` |
 
 
 `ALLOWED_ORIGINS` is a comma separated list of URLs. Each URL includes protocol, domain and port. 
 
 `ALLOWED_METHODS` is a comma separated list of methods.
+
+`CONTACT_INTERNAL_EMAIL` is the team address emails are sent to providing the information submitted on the contact page.
+
+`CONTACT_NOREPLY_EMAIL` is the noreply email used to send both the confirmation and internal emails
 
 An example env file `.env.sample` is included in this repository.
 

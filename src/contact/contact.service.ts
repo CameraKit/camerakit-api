@@ -11,10 +11,10 @@ import * as path from 'path';
 export class ContactService {
   private transporter = null;
 
-  constructor(config: ConfigService) {
-    aws.config.accessKeyId = config.awsSesAccessKey;
-    aws.config.secretAccessKey = config.awsSesSecretAccessKey;
-    aws.config.region = config.awsSesRegion;
+  constructor(private readonly config: ConfigService) {
+    aws.config.accessKeyId = this.config.awsSesAccessKey;
+    aws.config.secretAccessKey = this.config.awsSesSecretAccessKey;
+    aws.config.region = this.config.awsSesRegion;
 
     this.transporter = nodemailer.createTransport({
       SES: new aws.SES({
@@ -24,9 +24,10 @@ export class ContactService {
   }
 
   async sendConfirmationEmail(contact: Contact): Promise<string> {
+    let response;
     const confirmationEmail = new Email({
       message: {
-        from: 'noreply@camerakit.email',
+        from: this.config.contactNoreplyEmail,
         to: contact.email,
       },
       preview: false,
@@ -44,19 +45,23 @@ export class ContactService {
     });
 
     if (process.env.NODE_ENV === 'development') {
-      Logger.log('Sending confirmation email', ContactService.name);
+      Logger.log('Printing confirmation email', ContactService.name);
       confirmationEmail.render('../../static/emails/ck-contact-confirmation/text', {
         name: contact.name,
         email: contact.email,
         company: contact.company,
         message: contact.message,
       })
-      .then(Logger.log)
-      .catch(Logger.error);
+      .then(email => {
+        Logger.log(email, ContactService.name);
+      })
+      .catch(error => {
+        Logger.error(error, ContactService.name);
+      });
     }
 
-    let response;
     try {
+      Logger.log(`Sending confirmation email to: ${contact.email}`, ContactService.name);
       response = await confirmationEmail.send({
         template: 'ck-contact-confirmation',
         message: contact.message,
@@ -65,16 +70,18 @@ export class ContactService {
         },
       });
     } catch (error) {
-      Logger.error(error);
+      Logger.error(error, ContactService.name);
     }
     return response;
   }
 
   async sendInternalEmail(contact: Contact): Promise<string> {
+    let response;
+
     const internalEmail = new Email({
       message: {
-        from: 'noreply@camerakit.email',
-        to: 'noreply@camerakit.email',
+        from: this.config.contactNoreplyEmail,
+        to: this.config.contactInternalEmail,
       },
       preview: false,
       transport: this.transporter,
@@ -91,19 +98,23 @@ export class ContactService {
     });
 
     if (process.env.NODE_ENV === 'development') {
-      Logger.log('Sending internal email', ContactService.name);
+      Logger.log('Printing internal email', ContactService.name);
       internalEmail.render('../../static/emails/ck-contact-internal/text', {
         name: contact.name,
         email: contact.email,
         company: contact.company,
         message: contact.message,
       })
-      .then(Logger.log)
-      .catch(Logger.error);
+      .then(email => {
+        Logger.log(email, ContactService.name);
+      })
+      .catch(error => {
+        Logger.error(error, ContactService.name);
+      });
     }
 
-    let response;
     try {
+      Logger.log(`Sending internal email to: ${this.config.contactInternalEmail}`, ContactService.name);
       response = await internalEmail.send({
         template: 'ck-contact-internal',
         message: contact.message,
@@ -115,7 +126,7 @@ export class ContactService {
         },
       });
     } catch (error) {
-      Logger.error(error);
+      Logger.error(error, ContactService.name);
     }
     return response;
   }

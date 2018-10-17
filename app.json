@@ -19,6 +19,12 @@
     "AWS_SES_SECRET_ACCESS_KEY": {
       "required": true
     },
+    "CONTACT_INTERNAL_EMAIL": {
+      "required": true
+    },
+    "CONTACT_NOREPLY_EMAIL": {
+      "required": true
+    },
     "LOGDNA_KEY": {
       "required": true
     },
