@@ -4,7 +4,7 @@ import { PaymentController } from './payment.controller';
 import { PaymentService } from './payment.service';
 import { Payment } from './payment.entity';
 import { SubscriptionModule } from '../subscription/subscription.module';
-import { ProductModule } from 'product/product.module';
+import { ProductModule } from '../product/product.module';
 
 @Module({
   imports: [TypeOrmModule.forFeature([Payment]), SubscriptionModule, ProductModule],
