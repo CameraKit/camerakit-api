@@ -101,16 +101,16 @@ $ yarn test:cov
 ```
 ## API
 
-#### [Auth](#auth)
+#### Auth
 - [`POST` Log in](#log-in)
-#### [Contact](#contact)
+#### Contact
 - [`POST` Send email](#send-email)
-#### [Payment](#payment)
+#### Payment
 - [`POST` Log event](#log-event)
 - [`POST` Add support](#add-support)
 - [`DELETE` Remove subscription](#remove-subscription)
 
-#### [Users](#users)
+#### Users
 - [`POST` Register user](#register-user)
 - [`GET` User](#get-user)
 - [`GET` User subscriptions](#get-subscriptions)
@@ -120,7 +120,7 @@ $ yarn test:cov
 
 
 ## Auth
-## Log in
+### Log in
 
 Log in an existing user to get an access token for future requests. 
 
