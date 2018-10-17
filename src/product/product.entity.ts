@@ -1,24 +1,18 @@
 import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
-export class Payment {
+export class Product {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
   @Column()
-  userId: string;
+  planId: string;
+
+  @Column()
+  description: string;
 
   @Column()
   price: number;
-
-  @Column()
-  product: number;
-
-  @Column()
-  source: string;
-
-  @Column({ nullable: true })
-  subscriptionId: string;
 
   @Column({ nullable: true })
   startDate: Date;

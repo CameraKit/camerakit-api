@@ -1,7 +1,7 @@
 import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
-export class Payment {
+export class Subscription {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
@@ -12,7 +12,7 @@ export class Payment {
   price: number;
 
   @Column()
-  product: number;
+  product: string;
 
   @Column()
   source: string;
@@ -21,10 +21,10 @@ export class Payment {
   subscriptionId: string;
 
   @Column({ nullable: true })
-  startDate: Date;
+  startDate: number;
 
   @Column({ nullable: true })
-  endDate: Date;
+  endDate: number;
 
   @Column({ nullable: true })
   status: string;

@@ -18,16 +18,16 @@ export class ContactService {
 
     this.transporter = nodemailer.createTransport({
       SES: new aws.SES({
-        apiVersion: '2010-12-01'
-      })
+        apiVersion: '2010-12-01',
+      }),
     });
   }
 
-  async sendConfirmationEmail(contact: Contact): Promise<string> {  
-    var confirmationEmail = new Email({
+  async sendConfirmationEmail(contact: Contact): Promise<string> {
+    const confirmationEmail = new Email({
       message: {
         from: 'noreply@camerakit.email',
-        to: contact.email
+        to: contact.email,
       },
       preview: false,
       transport: this.transporter,
@@ -38,14 +38,13 @@ export class ContactService {
       juiceResources: {
         preserveImportant: true,
         webResources: {
-          relativeTo: path.join(__dirname, '../../static')
-        }
-      }
+          relativeTo: path.join(__dirname, '../../static'),
+        },
+      },
     });
 
-    Logger.log(process.env.NODE_ENV);
     if (process.env.NODE_ENV === 'development') {
-      Logger.log("EMAIL-LOG confirmation:");
+      Logger.log('Sending confirmation email', ContactService.name);
       confirmationEmail.render('../../static/emails/ck-contact-confirmation/text', {
         name: contact.name,
         email: contact.email,
@@ -56,13 +55,14 @@ export class ContactService {
       .catch(Logger.error);
     }
 
-    var response;
+    let response;
     try {
       response = await confirmationEmail.send({
         template: 'ck-contact-confirmation',
+        message: contact.message,
         locals: {
           message: contact.message,
-        }
+        },
       });
     } catch (error) {
       Logger.error(error);
@@ -70,15 +70,14 @@ export class ContactService {
     return response;
   }
 
-  async sendInternalEmail(contact: Contact): Promise<string> {  
-    var internalEmail = new Email({
+  async sendInternalEmail(contact: Contact): Promise<string> {
+    const internalEmail = new Email({
       message: {
         from: 'noreply@camerakit.email',
-        to: 'noreply@camerakit.email'
+        to: 'noreply@camerakit.email',
       },
       preview: false,
       transport: this.transporter,
-      template: 'ck-contact-internal',
       views: {
         root: './static/emails/',
       },
@@ -86,14 +85,13 @@ export class ContactService {
       juiceResources: {
         preserveImportant: true,
         webResources: {
-          relativeTo: path.join(__dirname, '../../static')
-        }
-      }
+          relativeTo: path.join(__dirname, '../../static'),
+        },
+      },
     });
 
-
     if (process.env.NODE_ENV === 'development') {
-      Logger.log("EMAIL-LOG internal:")
+      Logger.log('Sending internal email', ContactService.name);
       internalEmail.render('../../static/emails/ck-contact-internal/text', {
         name: contact.name,
         email: contact.email,
@@ -104,16 +102,17 @@ export class ContactService {
       .catch(Logger.error);
     }
 
-    var response;
+    let response;
     try {
       response = await internalEmail.send({
         template: 'ck-contact-internal',
+        message: contact.message,
         locals: {
           name: contact.name,
           email: contact.email,
           company: contact.company,
           message: contact.message,
-        }
+        },
       });
     } catch (error) {
       Logger.error(error);

@@ -11,7 +11,7 @@ export class ConfigService {
 
   constructor(filePath: string) {
     let config;
-    if(fs.existsSync(filePath)) { // Look for the specified file first
+    if (fs.existsSync(filePath)) { // Look for the specified file first
       config = dotenv.parse(fs.readFileSync(filePath));
     } else { // Fallback to checking if they are defined in the process.env already
       config = [
@@ -24,6 +24,8 @@ export class ConfigService {
         'TYPEORM_SYNCHRONIZE',
         'TYPEORM_LOGGING',
         'TYPEORM_ENTITIES',
+        'TYPEORM_SSL',
+        'REVERSE_PROXY',
         'SERVER_PORT',
         'SERVER_HOSTNAME',
         'ALLOWED_ORIGINS',
@@ -31,15 +33,16 @@ export class ConfigService {
         'PASSPORT_AUTH_SECRET',
         'STRIPE_PUBLISHABLE_API_KEY',
         'STRIPE_SECRET_API_KEY',
+        'STRIPE_WEBHOOK_SECRET',
         'AWS_SES_ACCESS_KEY_ID',
         'AWS_SES_SECRET_ACCESS_KEY',
-        'AWS_SES_REGION'
+        'AWS_SES_REGION',
       ].reduce((acc, val) => (acc[val] = process.env[val], acc), {});
     }
     this.envConfig = this.validateInput(config);
   }
 
-  // Check if the incoming object conforms to rules. Omission of 
+  // Check if the incoming object conforms to rules. Omission of
   // required() variables will not let the app function correctly
   // and will throw an error
   private validateInput(envConfig: EnvConfig): EnvConfig {
@@ -54,15 +57,18 @@ export class ConfigService {
       TYPEORM_SYNCHRONIZE: Joi.boolean().default(true),
       TYPEORM_LOGGING: Joi.boolean().default(true),
       TYPEORM_ENTITIES: Joi.string().default('src/**/*.entity.ts'),
+      TYPEORM_SSL: Joi.boolean().default(true),
+      REVERSE_PROXY: Joi.boolean().default(false),
       SERVER_PORT: Joi.number().default(3001),
       ALLOWED_ORIGINS: Joi.string().required(),
       ALLOWED_METHODS: Joi.string().required(),
       PASSPORT_AUTH_SECRET: Joi.string().required(),
       STRIPE_PUBLISHABLE_API_KEY: Joi.string().required(),
       STRIPE_SECRET_API_KEY: Joi.string().required(),
+      STRIPE_WEBHOOK_SECRET: Joi.string().required(),
       AWS_SES_ACCESS_KEY_ID: Joi.string().required(),
       AWS_SES_SECRET_ACCESS_KEY: Joi.string().required(),
-      AWS_SES_REGION: Joi.string().required()
+      AWS_SES_REGION: Joi.string().required(),
     });
 
     const { error, value: validatedEnvConfig } = Joi.validate(
@@ -87,9 +93,9 @@ export class ConfigService {
       logging: this.typeormLogging,
       entities: [this.typeormEntities],
       extra: {
-        ssl: true,
+        ssl: this.typeormSsl,
       },
-    }
+    };
   }
   get typeormConnection(): string {
     return String(this.envConfig.TYPEORM_CONNECTION);
@@ -118,14 +124,20 @@ export class ConfigService {
   get typeormEntities(): string {
     return String(this.envConfig.TYPEORM_ENTITIES);
   }
+  get typeormSsl(): boolean {
+    return Boolean(this.envConfig.TYPEORM_SSL);
+  }
+  get reverseProxy(): boolean {
+    return Boolean(this.envConfig.REVERSE_PROXY);
+  }
   get serverPort(): number {
     return Number(this.envConfig.SERVER_PORT);
   }
   get serverHost(): string {
     return String(this.envConfig.SERVER_HOSTNAME);
   }
-  get allowedOrigins(): Array<string> {
-    return this.envConfig.ALLOWED_ORIGINS.split(',').map(_=>_.trim());
+  get allowedOrigins(): string[] {
+    return this.envConfig.ALLOWED_ORIGINS.split(',').map(_ => _.trim());
   }
   get allowedMethods(): string {
     return String(this.envConfig.ALLOWED_METHODS);
@@ -138,6 +150,9 @@ export class ConfigService {
   }
   get stripeSecretApiKey(): string {
     return String(this.envConfig.STRIPE_SECRET_API_KEY);
+  }
+  get stripeWebhookSecret(): string {
+    return String(this.envConfig.STRIPE_WEBHOOK_SECRET);
   }
   get awsSesAccessKey(): string {
     return String(this.envConfig.AWS_SES_ACCESS_KEY_ID);
