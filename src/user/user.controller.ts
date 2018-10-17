@@ -17,7 +17,7 @@ export class UserController {
       return res.status(HttpStatus.INTERNAL_SERVER_ERROR).send(JSON.stringify({ error: result.error }));
     }
     Logger.log(result.message, UserController.name);
-    return res.status(HttpStatus.CREATED).send(JSON.stringify({ user: result.out }));
+    return res.status(HttpStatus.CREATED).send(JSON.stringify(result.out));
   }
 
   @Get('') // Get requesting user
@@ -51,7 +51,7 @@ export class UserController {
       return res.status(HttpStatus.INTERNAL_SERVER_ERROR).send(JSON.stringify({ error: result.error }));
     }
     Logger.log(result.message, UserController.name);
-    res.status(HttpStatus.OK).send(JSON.stringify({ user: result.out }));
+    res.status(HttpStatus.OK).send(JSON.stringify(result.out));
   }
 
   @Delete('') // Delete requesting user
@@ -66,4 +66,5 @@ export class UserController {
     Logger.log(result.message, UserController.name);
     res.status(HttpStatus.OK).send(JSON.stringify({ success: true }));
   }
+
 }
