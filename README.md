@@ -1,11 +1,15 @@
 # CameraKit API
 
-The API to support the website of one of the hardest Android APIs.
+The API to support the website of [CameraKit](https://github.com/camerakit/camerakit-android) - *takes one of the hardest Android APIs and makes it into a high level and easy to use library that solves all of your problems.*
 
   [Setup](#setup)
+  
   [Environment Variables](#environment-variables)
+  
   [Running](#running-the-app)
+  
   [API](#api)
+  
 ## Setup
 
 ### Install Dependencies
@@ -37,30 +41,31 @@ postgres=# \q
 
 ## Environment Variables
 The environment variables live in the `.env` file. This file is loaded by the dotenv loader in `main.ts`. There are variables for both database and CORS setup. Below is the `.env` file specification.
-|variable                  | type | sample value|
-|---------|-----------|--------------------------------------|
-|TYPEORM_CONNECTION |         string |  postgres |
-|TYPEORM_HOST |               string |  localhost |
-|TYPEORM_USERNAME |           string |  root |
-|TYPEORM_PASSWORD |           string |  root |
-|TYPEORM_DATABASE |           string |  production |
-|TYPEORM_PORT |               number |  5432 |
-|TYPEORM_SYNCHRONIZE |        boolean | true |
-|TYPEORM_LOGGING |            boolean | true |
-|TYPEORM_ENTITIES |           string |  src /\*\*/\*.entity.ts|
-|TYPEORM_SSL |                boolean | true |
-|REVERSE_PROXY |              boolean | false |
-|SERVER_PORT |                number |  3001 |
-|SERVER_HOST |                string |  localhost |
-|PASSPORT_AUTH_SECRET |       string |  vc@oix3p32@ios4#fds$32pa |
-|STRIPE_PUBLISHABLE_API_KEY | string |  pk_test_oeKdoJLApxYsyAum |
-|STRIPE_SECRET_API_KEY |      string |  sk_test_KJ38a03KaduQw2 |
-|STRIPE_WEBHOOK_SECRET |      string |  whsec_i4A39Ndu3JA3u1 |
-|ALLOWED_ORIGINS |            string |  https://yourdomain.tld,https://otherdomain.tld |
-|ALLOWED_METHODS |            string |  'GET,HEAD,PUT,PATCH,POST,DELETE' |
-|AWS_SES_ACCESS_KEY_ID |      string |  dCEa39ymXcgM9XF3HT8g |
-|AWS_SES_SECRET_ACCESS_KEY |  string |  DoMcYU12AD3MAzD4tRlXSz5Z0XxC1MipofloVjYf | 
-|AWS_SES_REGION |             string |  us-east-1 |
+
+| variable | type | sample value |
+| ----- | --------- | ----------------------- |
+| TYPEORM_CONNECTION |         string |  `postgres` |
+| TYPEORM_HOST |               string |  `localhost` |
+| TYPEORM_USERNAME |           string |  `root` |
+| TYPEORM_PASSWORD |           string |  `root` |
+| TYPEORM_DATABASE |           string |  `production` |
+| TYPEORM_PORT |               number |  `5432` |
+| TYPEORM_SYNCHRONIZE |        boolean | `true` |
+| TYPEORM_LOGGING |            boolean | `true` |
+| TYPEORM_ENTITIES |           string |  `src /**/*.entity.ts`|
+| TYPEORM_SSL |                boolean | `true` |
+| REVERSE_PROXY |              boolean | `false` |
+| SERVER_PORT |                number |  `3001` |
+| SERVER_HOST |                string |  `localhost` |
+| PASSPORT_AUTH_SECRET |       string |  `vc@oix3p32@ios4#fds$32pa` |
+| STRIPE_PUBLISHABLE_API_KEY | string |  `pk_test_oeKdoJLApxYsyAum` |
+| STRIPE_SECRET_API_KEY |      string |  `sk_test_KJ38a03KaduQw2` |
+| STRIPE_WEBHOOK_SECRET |      string |  `whsec_i4A39Ndu3JA3u1` |
+| ALLOWED_ORIGINS |            string |  `https://yourdomain.tld,https://otherdomain.tld` |
+| ALLOWED_METHODS |            string |  `'GET,HEAD,PUT,PATCH,POST,DELETE'` |
+| AWS_SES_ACCESS_KEY_ID |      string |  `dCEa39ymXcgM9XF3HT8g` |
+| AWS_SES_SECRET_ACCESS_KEY |  string |  `DoMcYU12AD3MAzD4tRlXSz5Z0XxC1MipofloVjYf` | 
+| AWS_SES_REGION |             string |  `us-east-1` |
 
 
 `ALLOWED_ORIGINS` is a comma separated list of URLs. Each URL includes protocol, domain and port. 
@@ -138,12 +143,13 @@ HTTP/1.1 200 OK
   "accessToken":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImRpbmdvIiwiaWF0djoxNTM5NzQzNTE1LCJleHAiOjE1NDMzNDM1MTV9.VJI3CvgvQhz8--hJ0UnfWq-RH3NzQtz6-tuNaLZNz0c"
 }
 ```
-####*Authorization header*
+#### *Authorization header*
 The `accessToken` from the [log in](#log-in) response must be sent for all protected routes.
 
 | Name    | Type      | Description                          |
 |---------|-----------|--------------------------------------|
 | Authorization			| String			|  Bearer token of logged in user |
+
 Using the above `Success Response`, the `Authorization` header's value would be
 ```
 Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImRpbmdvIiwiaWF0djoxNTM5NzQzNTE1LCJleHAiOjE1NDMzNDM1MTV9.VJI3CvgvQhz8--hJ0UnfWq-RH3NzQtz6-tuNaLZNz0c
@@ -163,7 +169,7 @@ Log in an existing user to get an access token for future requests.
 |---------|-----------|--------------------------------------|
 | name			| String 			|  The sender's name |
 | email			| String 			| The sender's email			|
-| company			| String 			|  The sender's company |
+| company			| String 			|  The sender's company name |
 | message		| String 			| The message body	|
 
 #### Success Response
@@ -236,7 +242,7 @@ HTTP/1.1 200 OK
   "ok": "true"
 }
 ```
-##Users
+## Users
 
 ### Register user
 
