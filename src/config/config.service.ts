@@ -37,8 +37,8 @@ export class ConfigService {
         'AWS_SES_ACCESS_KEY_ID',
         'AWS_SES_SECRET_ACCESS_KEY',
         'AWS_SES_REGION',
-        'CONTACT_INTERNAL_EMAIL_ADDRESS',
-        'CONTACT_NOREPLY_EMAIL_ADDRESS',
+        'CONTACT_INTERNAL_EMAIL',
+        'CONTACT_NOREPLY_EMAIL',
       ].reduce((acc, val) => (acc[val] = process.env[val], acc), {});
     }
     this.envConfig = this.validateInput(config);
