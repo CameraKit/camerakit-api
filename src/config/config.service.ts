@@ -37,6 +37,8 @@ export class ConfigService {
         'AWS_SES_ACCESS_KEY_ID',
         'AWS_SES_SECRET_ACCESS_KEY',
         'AWS_SES_REGION',
+        'CONTACT_INTERNAL_EMAIL_ADDRESS',
+        'CONTACT_NOREPLY_EMAIL_ADDRESS',
       ].reduce((acc, val) => (acc[val] = process.env[val], acc), {});
     }
     this.envConfig = this.validateInput(config);
@@ -69,6 +71,8 @@ export class ConfigService {
       AWS_SES_ACCESS_KEY_ID: Joi.string().required(),
       AWS_SES_SECRET_ACCESS_KEY: Joi.string().required(),
       AWS_SES_REGION: Joi.string().required(),
+      CONTACT_INTERNAL_EMAIL: Joi.string().required(),
+      CONTACT_NOREPLY_EMAIL: Joi.string().required(),
     });
 
     const { error, value: validatedEnvConfig } = Joi.validate(
@@ -162,5 +166,11 @@ export class ConfigService {
   }
   get awsSesRegion(): string {
     return String(this.envConfig.AWS_SES_REGION);
+  }
+  get contactInternalEmail(): string {
+    return String(this.envConfig.CONTACT_INTERNAL_EMAIL);
+  }
+  get contactNoreplyEmail(): string {
+    return String(this.envConfig.CONTACT_NOREPLY_EMAIL);
   }
 }
