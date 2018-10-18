@@ -1,8 +1,8 @@
 {
-  "name": "camerakit-nest-api",
-  "version": "0.0.0",
-  "description": "description",
-  "author": "",
+  "name": "camerakit-api",
+  "version": "1.0.0",
+  "description": "CameraKit's core API project supporting our website, dashboard, libraries",
+  "author": "Alterac, Inc.",
   "license": "MIT",
   "scripts": {
     "format": "prettier --write \"**/*.ts\"",
