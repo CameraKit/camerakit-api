@@ -1,0 +1,91 @@
+{
+  "name": "camerakit-api",
+  "description": "",
+  "scripts": {
+  },
+  "env": {
+    "ALLOWED_METHODS": {
+      "required": true
+    },
+    "ALLOWED_ORIGINS": {
+      "required": true
+    },
+    "AWS_SES_ACCESS_KEY_ID": {
+      "required": true
+    },
+    "AWS_SES_REGION": {
+      "required": true
+    },
+    "AWS_SES_SECRET_ACCESS_KEY": {
+      "required": true
+    },
+    "CONTACT_INTERNAL_EMAIL": {
+      "required": true
+    },
+    "CONTACT_NOREPLY_EMAIL": {
+      "required": true
+    },
+    "LOGDNA_KEY": {
+      "required": true
+    },
+    "PASSPORT_AUTH_SECRET": {
+      "required": true
+    },
+    "REVERSE_PROXY": {
+      "required": true
+    },
+    "SERVER_PORT": {
+      "required": true
+    },
+    "STRIPE_PUBLISHABLE_API_KEY": {
+      "required": true
+    },
+    "STRIPE_SECRET_API_KEY": {
+      "required": true
+    },
+    "STRIPE_WEBHOOK_SECRET": {
+      "required": true
+    },
+    "TYPEORM_CONNECTION": {
+      "required": true
+    },
+    "TYPEORM_DATABASE": {
+      "required": true
+    },
+    "TYPEORM_ENTITIES": {
+      "required": true
+    },
+    "TYPEORM_HOST": {
+      "required": true
+    },
+    "TYPEORM_LOGGING": {
+      "required": true
+    },
+    "TYPEORM_PASSWORD": {
+      "required": true
+    },
+    "TYPEORM_PORT": {
+      "required": true
+    },
+    "TYPEORM_SYNCHRONIZE": {
+      "required": true
+    },
+    "TYPEORM_USERNAME": {
+      "required": true
+    }
+  },
+  "formation": {
+    "web": {
+      "quantity": 1
+    }
+  },
+  "addons": [
+    "logdna",
+    "heroku-postgresql"
+  ],
+  "buildpacks": [
+    {
+      "url": "heroku/nodejs"
+    }
+  ]
+}
