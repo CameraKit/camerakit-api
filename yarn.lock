@@ -92,20 +92,20 @@
     glob-to-regexp "^0.3.0"
 
 "@nestjs/common@^5.3.11":
-  version "5.3.14"
-  resolved "https://registry.yarnpkg.com/@nestjs/common/-/common-5.3.14.tgz#ec40407ad0f5f65ec3db9320293d2a576d11ca9e"
-  integrity sha512-EPO3wu1WuNGQ9FPrCWxDEuC84P21aDI3LBK179/5OkBNHp4IEzpJyYGtMAIaEAukR6udrba1Cc88GwWqdU+MXg==
+  version "5.4.0"
+  resolved "https://registry.yarnpkg.com/@nestjs/common/-/common-5.4.0.tgz#74aa7da0d6931349b0a2cbe813b83ad77c2797ec"
+  integrity sha512-hC1TIZDbJBq2ESfwBNC0UqTVA6ZKTOLgAfOumqXU7HZMfeR7FIvNDJIX3aKOOjlcf8TwefkQ2nW26SKFxxhX+g==
   dependencies:
-    axios "0.17.1"
+    axios "0.18.0"
     cli-color "1.2.0"
     deprecate "1.0.0"
     multer "1.3.0"
     uuid "3.3.2"
 
 "@nestjs/core@^5.3.11":
-  version "5.3.14"
-  resolved "https://registry.yarnpkg.com/@nestjs/core/-/core-5.3.14.tgz#36e929988807c4fe42e7a5baaa27ce27a57ffc56"
-  integrity sha512-dOIn6cpe4VDJGN3fUphvhhweZ9q7ZtVrLwqjxScPJc3HuhuYWTEh2bCVv0mKA36tXewRZUWDbZc1mPsKHmRDcA==
+  version "5.4.0"
+  resolved "https://registry.yarnpkg.com/@nestjs/core/-/core-5.4.0.tgz#0c082ef019b5e435a9330feb3fe0101f3978af4e"
+  integrity sha512-GJkZ2tDhjAFZ1vuxXah8ooWBITO6I4IjPuzHtFh7apxrUEc/nZcmtGcSVNGyVZfdlacfg58WkjN5NAZaGPyWhA==
   dependencies:
     "@nuxtjs/opencollective" "0.1.0"
     body-parser "1.18.3"
@@ -136,9 +136,9 @@
   integrity sha512-I9UMWM9yfm/7w50f/glnELfKJUiBa1N2b57nqyOxKCbSApaRQtyvw70uMutbCmaOCkw6bjwBayG3uNrOodFMqw==
 
 "@nestjs/testing@^5.3.11":
-  version "5.3.14"
-  resolved "https://registry.yarnpkg.com/@nestjs/testing/-/testing-5.3.14.tgz#9ab8e72f6fdb6cf35698386a1416c9a95aa3385d"
-  integrity sha512-MG5wsBCIEK5ULuQNf5FOSH3RYw/s//n5w4/Ik078bPEXNT5DAPdlJIfsx41sjnZhlIfEPVQumHvNwJyhxmaFsQ==
+  version "5.4.0"
+  resolved "https://registry.yarnpkg.com/@nestjs/testing/-/testing-5.4.0.tgz#4728021fc4012243b4dd2ffb4228b59df7770235"
+  integrity sha512-goZk+ACEUxu8MG2xRlqYPW8SkIX74Xn4G3ozUsdkapTBR60XG1DpNucuWSISePS+ytaUKaaaRKARgbXx417DIw==
   dependencies:
     deprecate "1.0.0"
     optional "0.1.4"
@@ -999,9 +999,9 @@ auto-bind@^1.2.0, auto-bind@^1.2.1:
   integrity sha512-/W9yj1yKmBLwpexwAujeD9YHwYmRuWFGV8HWE7smQab797VeHa4/cnE2NFeDhA+E+5e/OGBI8763EhLjfZ/MXA==
 
 aws-sdk@^2.333.0:
-  version "2.337.0"
-  resolved "https://registry.yarnpkg.com/aws-sdk/-/aws-sdk-2.337.0.tgz#340911d49b3032a9d72c308665f5ddf2f7001311"
-  integrity sha512-Oqi7OQOxweQXNnbK6m3ealq/pjXPWgFI9adJ2Gls2343RtqUTHAr776dULHjFe5IrLdHjm2avlL7FgDuNVD3FQ==
+  version "2.339.0"
+  resolved "https://registry.yarnpkg.com/aws-sdk/-/aws-sdk-2.339.0.tgz#869ce594b87854c723c6157c2a56f101334ce258"
+  integrity sha512-ScEfOR/JhtDuCVPkwB3mMLDgo8YrcSpFpHmoZLRNbefrQ9yTI+zTJqTrdeArNdwOLLoc/yCbqgHRQfXUCcfyfQ==
   dependencies:
     buffer "4.9.1"
     events "1.1.1"
@@ -1023,12 +1023,12 @@ aws4@^1.8.0:
   resolved "https://registry.yarnpkg.com/aws4/-/aws4-1.8.0.tgz#f0e003d9ca9e7f59c7a508945d7b2ef9a04a542f"
   integrity sha512-ReZxvNHIOv88FlT7rxcXIIC0fPt4KZqZbOlivyWtXLt8ESx84zd3kMC6iK5jVeS2qt+g7ftS7ye4fi06X5rtRQ==
 
-axios@0.17.1:
-  version "0.17.1"
-  resolved "https://registry.yarnpkg.com/axios/-/axios-0.17.1.tgz#2d8e3e5d0bdbd7327f91bc814f5c57660f81824d"
-  integrity sha1-LY4+XQvb1zJ/kbyBT1xXZg+Bgk0=
+axios@0.18.0:
+  version "0.18.0"
+  resolved "https://registry.yarnpkg.com/axios/-/axios-0.18.0.tgz#32d53e4851efdc0a11993b6cd000789d70c05102"
+  integrity sha1-MtU+SFHv3AoRmTts0AB4nXDAUQI=
   dependencies:
-    follow-redirects "^1.2.5"
+    follow-redirects "^1.3.0"
     is-buffer "^1.1.5"
 
 babel-code-frame@^6.22.0, babel-code-frame@^6.26.0:
@@ -3089,7 +3089,7 @@ flush-write-stream@^1.0.0:
     inherits "^2.0.1"
     readable-stream "^2.0.4"
 
-follow-redirects@^1.2.5:
+follow-redirects@^1.3.0:
   version "1.5.9"
   resolved "https://registry.yarnpkg.com/follow-redirects/-/follow-redirects-1.5.9.tgz#c9ed9d748b814a39535716e531b9196a845d89c6"
   integrity sha512-Bh65EZI/RU8nx0wbYF9shkFZlqLP+6WT/5FnA3cE/djNSuKNHJEinGGZgu/cQEkeeb2GdFOgenAmn8qaqYke2w==
@@ -4168,9 +4168,9 @@ isarray@1.0.0, isarray@^1.0.0, isarray@~1.0.0:
   integrity sha1-u5NdSFgsuhaMBoNJV6VKPgcSTxE=
 
 isemail@3.x.x:
-  version "3.1.4"
-  resolved "https://registry.yarnpkg.com/isemail/-/isemail-3.1.4.tgz#76e2187ff7bee59d57522c6fd1c3f09a331933cf"
-  integrity sha512-yE/W5osEWuAGSLVixV9pAexhkbZzglmuhO2CxdHu7IBh7uzuZogQ4bk0lE26HoZ6HD4ZYfKRKilkNuCnuJIBJw==
+  version "3.2.0"
+  resolved "https://registry.yarnpkg.com/isemail/-/isemail-3.2.0.tgz#59310a021931a9fb06bbb51e155ce0b3f236832c"
+  integrity sha512-zKqkK+O+dGqevc93KNsbZ/TqTUFd46MwWjYOoMrjIMZ51eU7DtQG3Wmd9SQQT7i7RVnuTPEiYEWHU3MSbxC1Tg==
   dependencies:
     punycode "2.x.x"
 
@@ -5545,12 +5545,12 @@ node-libs-browser@^2.0.0:
     vm-browserify "0.0.4"
 
 node-notifier@^5.2.1:
-  version "5.2.1"
-  resolved "https://registry.yarnpkg.com/node-notifier/-/node-notifier-5.2.1.tgz#fa313dd08f5517db0e2502e5758d664ac69f9dea"
-  integrity sha512-MIBs+AAd6dJ2SklbbE8RUDRlIVhU8MaNLh1A9SUZDUHPiZkWLFde6UNwG41yQHZEToHgJMXqyVZ9UcS/ReOVTg==
+  version "5.3.0"
+  resolved "https://registry.yarnpkg.com/node-notifier/-/node-notifier-5.3.0.tgz#c77a4a7b84038733d5fb351aafd8a268bfe19a01"
+  integrity sha512-AhENzCSGZnZJgBARsUjnQ7DnZbzyP+HxlVXuD0xqAnvL8q+OqtSX7lGg9e8nHzwXkMMXNdVeqq4E2M3EUAqX6Q==
   dependencies:
     growly "^1.3.0"
-    semver "^5.4.1"
+    semver "^5.5.0"
     shellwords "^0.1.1"
     which "^1.3.0"
 
@@ -6922,7 +6922,7 @@ semver-diff@^2.0.0:
   dependencies:
     semver "^5.0.3"
 
-"semver@2 || 3 || 4 || 5", semver@^5.0.1, semver@^5.0.3, semver@^5.1.0, semver@^5.3.0, semver@^5.4.1, semver@^5.5, semver@^5.5.0:
+"semver@2 || 3 || 4 || 5", semver@^5.0.1, semver@^5.0.3, semver@^5.1.0, semver@^5.3.0, semver@^5.5, semver@^5.5.0:
   version "5.6.0"
   resolved "https://registry.yarnpkg.com/semver/-/semver-5.6.0.tgz#7e74256fbaa49c75aa7c7a205cc22799cac80004"
   integrity sha512-RS9R6R35NYgQn++fkDWaOmqGoj4Ek9gGs+DPxNUZKuwE183xjJroKvyo1IzVFeXvUrvmALy6FWD5xrdJT25gMg==
@@ -7804,9 +7804,9 @@ typedarray@^0.0.6:
   integrity sha1-hnrHTjhkGHsdPUfZlqeOxciDB3c=
 
 typeorm@^0.2.7:
-  version "0.2.7"
-  resolved "https://registry.yarnpkg.com/typeorm/-/typeorm-0.2.7.tgz#4bbbace80dc91b1303be13f42d44ebf01d1b2558"
-  integrity sha512-D7JxOBSqBiLAPu/M/4v15J++3klAWcv5WvYgrfl0iaaGObZJ/8UXm3oTpOtQUHfwJO9Cja8JMiwT9G7dyvwrxg==
+  version "0.2.8"
+  resolved "https://registry.yarnpkg.com/typeorm/-/typeorm-0.2.8.tgz#b8f7e0809ad7b2c03c03ff101fadf1b90e4083a3"
+  integrity sha512-MvMwi3Qd1nTBMZsohOy9Pb7eHFXY+YRtPdG90ayfPeC7z2DJXE0gOF8zAKUlxLy1+Dyyq/tOQS+LY/4/6yI/3A==
   dependencies:
     app-root-path "^2.0.1"
     buffer "^5.1.0"
@@ -8521,6 +8521,6 @@ zen-observable-ts@^0.8.10:
     zen-observable "^0.8.0"
 
 zen-observable@^0.8.0:
-  version "0.8.9"
-  resolved "https://registry.yarnpkg.com/zen-observable/-/zen-observable-0.8.9.tgz#0475c760ff0eda046bbdfa4dc3f95d392807ac53"
-  integrity sha512-Y9kPzjGvIZ5jchSlqlCpBW3I82zBBL4z+ulXDRVA1NwsKzjt5kwAi+gOYIy0htNkfuehGZZtP5mRXHRV6TjDWw==
+  version "0.8.10"
+  resolved "https://registry.yarnpkg.com/zen-observable/-/zen-observable-0.8.10.tgz#85ad75d41fed82e5b4651bd64ca117b2af960182"
+  integrity sha512-UXEh0ekA/QWYI2NkLHc5IH0V1FstIN4qGVlVvq0DQAS3oR72mofYHkjJ2f4ysMKRAziwnACzg3c0ZuG+SMDu8w==
