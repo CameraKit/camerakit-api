@@ -122,7 +122,12 @@ $ yarn test:cov
 - [`GET` User subscriptions](#get-subscriptions)
 - [`PUT` Update user](#update-user)
 - [`DELETE` Remove user](#remove-user)
-	
+
+#### Key
+- [`GET` Get key](#get-key)
+- [`POST` Create key](#create-key)
+- [`POST` Check key](#check-key)
+- [`DELETE` Remove key](#remove-key)
 
 
 ## Auth
@@ -276,10 +281,11 @@ HTTP/1.1 200 OK
   "email":"test@email.com",
   "password":null,
   "emailConfirmed":false,
-  "firstName":Greg,
-  "lastName":Smith,
-  "companyName":Alterac,
-  "companyDescription":null,"id":"191e7252-662c-4b69-885a-0aa505bea6cf"
+  "firstName":"Greg",
+  "lastName":"Smith",
+  "companyName":"Alterac",
+  "companyDescription":null,
+  "id":"191e7252-662c-4b69-885a-0aa505bea6cf"
 }
 ```
 ### Get user
@@ -300,10 +306,11 @@ HTTP/1.1 200 OK
   "email":"test@email.com",
   "password":null,
   "emailConfirmed":false,
-  "firstName":Greg,
-  "lastName":Smith,
-  "companyName":Alterac,
-  "companyDescription":null,"id":"191e7252-662c-4b69-885a-0aa505bea6cf"
+  "firstName":"Greg",
+  "lastName":"Smith",
+  "companyName":"Alterac",
+  "companyDescription":null,
+  "id":"191e7252-662c-4b69-885a-0aa505bea6cf"
 }
 ```
 ### Get subscriptions
@@ -364,10 +371,11 @@ HTTP/1.1 200 OK
   "email":"newtest@email.com",
   "password":null,
   "emailConfirmed":true,
-  "firstName":Greg,
-  "lastName":Schmidt,
-  "companyName":Alterac,
-  "companyDescription":null,"id":"191e7252-662c-4b69-885a-0aa505bea6cf"
+  "firstName":"Greg",
+  "lastName":"Schmidt",
+  "companyName":"Alterac",
+  "companyDescription":null,
+  "id":"191e7252-662c-4b69-885a-0aa505bea6cf"
 }
 ```
 ### Remove user
@@ -386,5 +394,79 @@ Requires [Authorization header](#authorization-header)
 HTTP/1.1 200 OK
 {
   "success": true
+}
+```
+## Key
+
+### Get key
+
+Retrieve current key assigned to requesting account.
+
+	GET /key
+
+#### Headers
+
+Requires [Authorization header](#authorization-header)	
+
+#### Success Response
+
+```
+HTTP/1.1 200 OK
+{
+  "key": "0oi5n7nd8pj85xsmzbh4z7bz7qqgqqh1"
+}
+```
+### Create key
+
+Generate a new key and revoke currently assigned key.
+
+	POST /key/create
+
+#### Headers
+
+Requires [Authorization header](#authorization-header)	
+
+#### Success Response
+
+```
+HTTP/1.1 200 OK
+{
+  "key" : "0oi5n7nd8pj85xsmzbh4z7bz7qqgqqh1"
+}
+```
+### Check key
+
+A test route to show validity of an API key.
+
+	POST /key/check
+
+#### Headers
+
+Requires [Authorization header](#authorization-header)	
+
+#### Success Response
+
+```
+HTTP/1.1 200 OK
+{
+  "valid": true
+}
+```
+### Remove key
+
+Revoke key assigned to requesting account.
+
+	DELETE /key
+
+#### Headers
+
+Requires [Authorization header](#authorization-header)
+
+#### Success Response
+
+```
+HTTP/1.1 200 OK
+{
+  "ok": true
 }
 ```
