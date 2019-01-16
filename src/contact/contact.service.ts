@@ -52,10 +52,10 @@ export class ContactService {
         company: contact.company,
         message: contact.message,
       })
-      .then(email => {
+      .then((email) => {
         Logger.log(email, ContactService.name);
       })
-      .catch(error => {
+      .catch((error) => {
         Logger.error(error, ContactService.name);
       });
     }
@@ -105,10 +105,10 @@ export class ContactService {
         company: contact.company,
         message: contact.message,
       })
-      .then(email => {
+      .then((email) => {
         Logger.log(email, ContactService.name);
       })
-      .catch(error => {
+      .catch((error) => {
         Logger.error(error, ContactService.name);
       });
     }

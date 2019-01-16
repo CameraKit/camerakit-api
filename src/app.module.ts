@@ -9,6 +9,7 @@ import { SubscriptionModule } from './subscription/subscription.module';
 import { ContactModule } from './contact/contact.module';
 import { GraphQLModule } from '@nestjs/graphql';
 import { ConfigService } from './config/config.service';
+import { KeyModule } from './key/key.module';
 
 // the config service cannot be passed through on first initialization since it is an import
 const configService = new ConfigService('.env');
@@ -26,6 +27,7 @@ const configService = new ConfigService('.env');
     PaymentModule,
     ProductModule,
     SubscriptionModule,
+    KeyModule,
   ],
 })
 
